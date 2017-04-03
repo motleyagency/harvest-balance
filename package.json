@@ -1,0 +1,19 @@
+{
+  "name": "harvest-balance",
+  "version": "0.0.1",
+  "description": "Calculate hour balance using Harvest API",
+  "main": "server/index.js",
+  "author": "Fredrik Boström <fredrik@fredrikbostrom.net>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv-extended": "^1.0.4",
+    "harvest": "^0.2.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "moment-business": "^3.0.1",
+    "twix": "^1.1.4"
+  },
+  "scripts": {
+    "start": "node ."
+  }
+}
