@@ -1,68 +1,66 @@
-require('dotenv-extended').load();
-const Harvest = require('harvest');
-const _ = require('lodash');
-const moment = require('moment');
-const business = require('moment-business');
-require('twix');
+import express from "express";
+import Harvest from "harvest";
+import { getReport } from "./lib/calculator";
+// import { round } from "./lib/util";
 
-const round = number => parseFloat(Math.round(number * 100) / 100).toFixed(2);
+require("dotenv-extended").load();
 
-const midweekHolidays = [
-  '20170101',
-  '20170106',
-  '20170414',
-  '20170417',
-  '20170501',
-  '20170525',
-  '20170624',
-  '20171206',
-  '20170124',
-  '20171225',
-  '20171226'
-]
+const app = express();
 
-const harvest = new Harvest({
-  subdomain: process.env.HARVEST_SUBDOMAIN,
-  email: process.env.HARVEST_EMAIL,
-  password: process.env.HARVEST_PASSWORD
+app.get("/api/auth", (req, res) => {
+  const harvest = new Harvest({
+    subdomain: process.env.HARVEST_SUBDOMAIN,
+    redirect_uri: process.env.HARVEST_REDIRECT_URI,
+    identifier: process.env.HARVEST_CLIENT_ID,
+    secret: process.env.HARVEST_SECRET,
+  });
+
+  res.redirect(harvest.getAccessTokenURL());
 });
-const TimeTracking = harvest.TimeTracking;
-const Reports = harvest.Reports;
 
-const fromDate = moment(process.env.START_DATE);
-const toDate = moment();
-let totalWorkingDays = business.weekDays(fromDate, toDate);
-const range = fromDate.twix(toDate);
+app.get("/api/oauth-success", (req, res) => {
+  const harvest = new Harvest({
+    subdomain: process.env.HARVEST_SUBDOMAIN,
+    redirect_uri: process.env.HARVEST_REDIRECT_URI,
+    identifier: process.env.HARVEST_CLIENT_ID,
+    secret: process.env.HARVEST_SECRET,
+  });
 
-midweekHolidays.forEach(holiday => {
-  if (range.contains(holiday) && business.isWeekDay(moment(holiday))) {
-    totalWorkingDays -= 1;
-  }
-})
-const maxWorkingHours = totalWorkingDays * 7.5;
+  harvest.parseAccessCode(req.query.code, (accessToken) => {
+    // console.log("Grabbed the access token to save", accessToken);
+    res.json({
+      harvest_token: accessToken,
+    });
+  });
+});
 
-Reports.timeEntriesByUser({
-  from: fromDate.format('YYYYMMDD'),
-  to: toDate.format('YYYYMMDD'),   // NOTE: to is not included
-  user_id: process.env.HARVEST_USERID
-}, function(err, tasks) {
-  if (err) throw new Error(err);
-  // console.log(tasks);
+app.get("/api/balance", (req, res) => {
+  // console.log(req.get("harvest_token"));
+  const harvest = new Harvest({
+    subdomain: process.env.HARVEST_SUBDOMAIN,
+    access_token: req.get("harvest_token"),
+  });
+  const startDate = req.query.startDate;
 
-  const totalHours = tasks.reduce((sum, task) => {
-    return sum + task.day_entry.hours;
-  }, 0);
+  getReport(harvest, {
+    startDate,
+  }).then((report) => {
+    // const reportString = `
+    //   ${report.totalWorkingDays} working days
+    //   between ${report.fromDate.format("YYYY-MM-DD")}
+    //   and ${report.toDate.format("YYYY-MM-DD")}.
+    //   7.5 hours per day equals ${report.maxWorkingHours} working hours in total.
+    //   You have ${round(report.totalHours)} accumulated hours.
+    //   Your balance: ${round(report.balance)} hours.
+    // `;
+    // console.log(reportString);
+    res.json(report);
+  }).catch((e) => {
+    res.status(500).json(e);
+  });
+});
 
-  const balance = totalHours - maxWorkingHours;
-
-  const report = `
-    ${totalWorkingDays} working days between ${fromDate.format('YYYY-MM-DD')} to ${toDate.format('YYYY-MM-DD')}.
-    7.5 hours per day equals ${maxWorkingHours} working hours in total.
-    You have ${round(totalHours)} accumulated hours.
-    Your balance: ${round(balance)} hours.
-  `
-
-  console.log(report);
-  // console.log(totalHours, totalWorkingDays, balance);
-
+app.listen(5000, () => {
+  // eslint-disable-next-line no-console
+  console.log("Example app listening on port 5000!");
 });
