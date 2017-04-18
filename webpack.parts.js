@@ -31,6 +31,7 @@ exports.loadJSX = function (include) {
               loader: "babel-loader?cacheDirectory",
               options: {
                 presets: ["react", "es2015"],
+                plugins: ["transform-object-rest-spread"],
               },
             },
           ],

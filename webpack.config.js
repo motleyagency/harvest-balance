@@ -132,6 +132,11 @@ default:
       port: parseInt(process.env.DEV_PORT, 10),
       poll: ENABLE_POLLING,
     }),
+    parts.devProxy({
+      "/api": {
+        target: "http://localhost:5000"
+      }
+    }),
     parts.enableReactPerformanceTools()
   );
 }
