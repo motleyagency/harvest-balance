@@ -1,39 +1,33 @@
+/**
+ * Reducer for authenticating through Harvestapp.
+ * Keeps the harvest_token and authentication state
+ * and errors.
+ */
 import {
   LOGIN,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT,
 } from "../actions"
-import { getSession, setSession } from "../lib/auth"
 
-const initialState = () => {
-  const session = getSession()
-  if (session) {
-    return {
-      status: session.user ? "success" : "",
-      session,
-    }
-  }
-  return {}
-}
-
-const auth = (state = initialState(), action) => {
+const auth = (state = {}, action) => {
   switch (action.type) {
   case LOGIN:
     return Object.assign({}, state, {
-      status: "loading",
+      status: "pending",
+      token: null,
     })
   case LOGIN_SUCCESS:
     return Object.assign({}, state, {
       status: "success",
-      session: action.payload,
+      token: action.payload,
     })
   case LOGIN_ERROR:
     return Object.assign({}, state, {
       status: "error",
+      token: null,
     })
   case LOGOUT:
-    setSession(null)
     return {}
   default:
     return state

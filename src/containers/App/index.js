@@ -1,12 +1,13 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import Home from "../../components/Home"
 import Login from "../../containers/Login"
 import Oauth from "../../containers/Oauth"
 
-const mapStateToProps = state => ({
-  authenticated: !!(state.auth.session && state.auth.session.harvest_token),
+const mapStateToProps = ({ auth }) => ({
+  authenticated: !!auth.token,
 })
 
 const App = ({ authenticated }) => (

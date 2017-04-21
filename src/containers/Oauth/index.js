@@ -1,10 +1,11 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import { login } from "../../actions"
 
-const mapStateToProps = state => ({
-  status: state.auth.status,
+const mapStateToProps = ({ auth }) => ({
+  ...auth,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -16,16 +17,18 @@ const mapDispatchToProps = dispatch => ({
 class Oauth extends React.Component {
 
   componentDidMount() {
-    const { handleAuth, location: { search }, status } = this.props
+    const { handleAuth, location: { search },
+    } = this.props
     const authCode = new URLSearchParams(search).get("code")
 
-    if (status !== "loading" && authCode) {
+    if (authCode) {
       handleAuth(authCode)
     }
   }
 
   render() {
-    if (this.props.status === "success" || this.props.status === "error") {
+    const { status } = this.props
+    if (status === "success" || status === "error") {
       return <Redirect to="/" />
     }
     return <div>Authenticating...</div>
@@ -43,7 +46,7 @@ Oauth.defaultProps = {
   location: {
     search: "",
   },
-  status: "",
+  status: "pending",
 }
 
 export default connect(

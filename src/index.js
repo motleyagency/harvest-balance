@@ -5,6 +5,9 @@ import { render } from "react-dom"
 import { createStore, applyMiddleware } from "redux"
 import { Provider } from "react-redux"
 import createSagaMiddleware from "redux-saga"
+import debounce from "lodash.debounce"
+import { getToken, setToken } from "./lib/auth"
+import { loginSuccess } from "./actions"
 import reducers from "./reducers"
 import { rootSaga } from "./sagas"
 import "./main.scss"
@@ -19,6 +22,18 @@ const store = createStore(
   applyMiddleware(sagaMiddleware),
 )
 sagaMiddleware.run(rootSaga)
+
+const token = getToken()
+if (token) {
+  store.dispatch(loginSuccess(token))
+}
+store.subscribe(debounce(() => {
+  console.log("setting token", store.getState().auth.token)
+  setToken(store.getState().auth.token)
+}, 500, {
+  leading: true,
+  trailing: false,
+}))
 
 render(
   <Provider store={store}>

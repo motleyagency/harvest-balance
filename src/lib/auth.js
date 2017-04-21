@@ -2,14 +2,14 @@ import storage from "./storage"
 
 const lStorage = storage(localStorage)
 
-export const getSession = () => lStorage.get("auth", {})
+export const getToken = () => lStorage.get("auth", null)
 
-export const setSession = session => lStorage.set("auth", session)
+export const setToken = token => lStorage.set("auth", token)
 
-export const isAuthenticated = () => !!getSession().harvest_token
+export const isAuthenticated = () => !!getToken()
 
 export default {
-  getSession,
-  setSession,
+  getToken,
+  setToken,
   isAuthenticated,
 }

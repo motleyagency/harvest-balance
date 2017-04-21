@@ -1,20 +1,22 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import { connect } from "react-redux"
 import LoginComponent from "../../components/Login"
 import { AUTH_URL } from "../../lib/harvestBalance"
 
-const mapStateToProps = state => ({
-  status: state.auth.status,
+const mapStateToProps = () => ({
+  authUrl: AUTH_URL,
 })
 
-const Login = () => (
-  <LoginComponent authUrl={AUTH_URL} />
+const Login = ({ authUrl }) => (
+  <LoginComponent authUrl={authUrl} />
 )
+
 Login.propTypes = {
-  status: PropTypes.string,
+  authUrl: PropTypes.string,
 }
 Login.defaultProps = {
-  status: null,
+  authUrl: null,
 }
 
 export default connect(

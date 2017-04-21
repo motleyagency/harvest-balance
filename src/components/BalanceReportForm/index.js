@@ -1,4 +1,5 @@
-import React, { PropTypes } from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import { Form, Label, Input, Button } from "reactstrap"
 
 class BalanceReportForm extends React.Component {
