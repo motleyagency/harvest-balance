@@ -23,13 +23,16 @@ const store = createStore(
 )
 sagaMiddleware.run(rootSaga)
 
-const token = getToken()
+let token = getToken()
 if (token) {
   store.dispatch(loginSuccess(token))
 }
 store.subscribe(debounce(() => {
-  console.log("setting token", store.getState().auth.token)
-  setToken(store.getState().auth.token)
+  const newToken = store.getState().auth.token
+  if (newToken !== token) {
+    token = newToken
+    setToken(newToken)
+  }
 }, 500, {
   leading: true,
   trailing: false,
