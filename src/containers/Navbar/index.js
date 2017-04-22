@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { profileFetch, logout } from "../../actions"
-import Profile from "../../components/Profile"
+import Navbar from "../../components/Navbar"
 
 const mapStateToProps = ({ profile: { account } }) => ({
   company: account.company,
@@ -19,4 +19,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Profile)
+)(Navbar)

@@ -207,6 +207,23 @@ exports.setupAssets = function (paths) {
   }
 }
 
+exports.setupFonts = function (paths) {
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.(ttf|eot|woff|woff2).*$/,
+          loader: "file-loader",
+          include: paths,
+          options: {
+            name: "assets/fonts/[name].[ext]",
+          },
+        },
+      ],
+    },
+  }
+}
+
 exports.minify = function () {
   return {
     plugins: [

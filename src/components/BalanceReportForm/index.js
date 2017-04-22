@@ -1,6 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Form, Label, Input, Button } from "reactstrap"
+import styled from "styled-components"
+import { Col, Form, FormGroup, Label, Input, Button } from "reactstrap"
+
+const DateInput = styled(Input)`
+  padding: 6px 8px;
+`
 
 class BalanceReportForm extends React.Component {
   constructor(props) {
@@ -25,10 +30,18 @@ class BalanceReportForm extends React.Component {
   render() {
     return (
       <Form>
-        <Label>Start date</Label>
-        <Input type="text" name="startDate" onChange={this.setStartDate} />
-
-        <Button onClick={this.handleSubmit}>Get report</Button>
+        <FormGroup row className="justify-content-center">
+          <Label xs={12} md={3} lg={2} className="col text-sm-right">Start date</Label>
+          <Col xs={12} sm={4} md={3} lg={2}>
+            <DateInput type="date" name="startDate" onChange={this.setStartDate} />
+          </Col>
+          <Col xs={12} sm md={3} lg={2} className="pt-2 pt-sm-0">
+            <Button
+              onClick={this.handleSubmit}
+              className="btn-block" color="primary"
+            >Get report</Button>
+          </Col>
+        </FormGroup>
       </Form>
     )
   }

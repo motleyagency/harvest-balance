@@ -8,7 +8,7 @@ const balanceReport = (state = {}, action) => {
   switch (action.type) {
   case BALANCE_REPORT_FETCH:
     return Object.assign({}, state, {
-      status: "loading",
+      status: "pending",
     })
   case BALANCE_REPORT_SUCCESS:
     return Object.assign({}, state, {

@@ -29,7 +29,8 @@ export const getReport = (harvestClient, { startDate }) => {
   }).then((tasks) => {
     const totalWorkedHours = tasks.reduce((sum, task) => sum + task.day_entry.hours, 0)
 
-    const balance = totalWorkedHours - maxWorkingHours
+    const balance = Math.round((totalWorkedHours - maxWorkingHours) * 100) / 100
+    const balanceDuration = moment.duration(balance, "hours")
 
     return {
       fromDate,
@@ -37,7 +38,11 @@ export const getReport = (harvestClient, { startDate }) => {
       totalWorkingDays,
       maxWorkingHours,
       totalWorkedHours,
-      balance,
+      balance: {
+        value: balance,
+        hours: Math.floor(balance),
+        minutes: balanceDuration.minutes(),
+      },
     }
   })
 }

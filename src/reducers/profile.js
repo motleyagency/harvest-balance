@@ -13,7 +13,7 @@ const profile = (state = initialState, action) => {
   switch (action.type) {
   case PROFILE_FETCH:
     return Object.assign({}, state, {
-      status: "loading",
+      status: "pending",
       account: {},
     })
   case PROFILE_SUCCESS:

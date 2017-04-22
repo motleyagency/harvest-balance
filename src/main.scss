@@ -1,5 +1,15 @@
 @import "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+@import "assets/fontello/css/harvest-balance.css";
+@import "assets/fontello/css/animation.css";
+
+@font-face {
+  font-family: 'harvest-balance';
+  src: url('./assets/fontello/font/harvest-balance.woff2') format('woff2'),
+    url('./assets/fontello/font/harvest-balance.woff') format('woff'),
+    url('./assets/fontello/font/harvest-balance.eot') format('embedded-opentype'),
+    url('./assets/fontello/font/harvest-balance.ttf') format('truetype');
+}
 
 body {
   font-family: 'Roboto', sans-serif;

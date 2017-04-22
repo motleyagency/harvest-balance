@@ -85,6 +85,7 @@ case "stats":
     parts.setFreeVariable("process.env.NODE_ENV", "production"),
     parts.setFreeVariable("process.env.BACKEND_URL", process.env.BACKEND_URL),
     parts.setupAssets(PATHS.assets),
+    parts.setupFonts(PATHS.assets),
     parts.extractBundle({
       name: "vendor",
       // Take vendor packages from package.json"s "dependencies≤" object
@@ -124,6 +125,7 @@ default:
     },
     parts.setupCSS(PATHS.style),
     parts.setupAssets(PATHS.assets),
+    parts.setupFonts(PATHS.assets),
     // Set the backend url to the dev backend
     parts.setFreeVariable("process.env.BACKEND_URL", process.env.BACKEND_DEV_URL),
     parts.devServer({
