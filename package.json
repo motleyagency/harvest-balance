@@ -40,6 +40,8 @@
     "reactstrap": "^4.2.0",
     "redux": "^3.6.0",
     "redux-saga": "^0.14.3",
+    "styled-components": "^1.4.5",
+    "svg-url-loader": "^2.0.2",
     "tether": "^1.4.0",
     "twix": "^1.1.4",
     "uuid": "^3.0.1"

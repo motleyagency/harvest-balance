@@ -14,6 +14,12 @@ exports.indexTemplate = function (options) {
         title: options.title,
         appMountId: options.appMountId,
         inject: false,
+        meta: [
+          {
+            name: "viewport",
+            content: "width=device-width, initial-scale=1, shrink-to-fit=no",
+          },
+        ],
       }),
     ],
   }
@@ -189,6 +195,11 @@ exports.setupAssets = function (paths) {
         {
           test: /\.jpe?g$/,
           use: "url-loader?mimetype=image/jpg",
+          include: paths,
+        },
+        {
+          test: /\.svg$/,
+          use: "svg-url-loader?noquotes",
           include: paths,
         },
       ],
