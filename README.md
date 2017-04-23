@@ -4,27 +4,83 @@ Calculate your time balance using the Harvest API.
 
 ## Installing and running
 
-Create a `.env` file with the following information (make a copy of `.env.defaults`):
+Make sure you have [nodejs](https://nodejs.org/en/) and [yarn](https://yarnpkg.com) installed.
+
+The application consists of a React/Redux frontend and a Node.js backend. You will also need to make changes to your Harvest account.
+
+### Harvest account
+
+You need to register this app in your company's Harvest account to allow authenticating the app over OAuth 2.0. For this webapp to run, you will need
+
+* your company's Harvest subdomain (i.e. **youraccount**_.harvestapp.com_)
+* a client ID for this app (acquired when registering this app)
+* a client secret for this app (acquired when registering this app)
+* a redirect URL where to redirect users after authenticating (configured when registering this app, see below)
+
+**Note:** If you use the frontend bundled with this app, the redirect URL must be the frontend URL `http://apphost.com/oauth`. That page will handle the rest of the OAuth process.
+
+See detailed instructions for registering the app on [Harvest's website](http://help.getharvest.com/api-v1/authentication/authentication/oauth/).
+
+### Harvest Balance set up
+
+Create a `.env` file with the following information from the above step (make a copy of `.env.defaults`):
 
 ```
 HARVEST_SUBDOMAIN=someValueHere
 HARVEST_CLIENT_ID=someValueHere
 HARVEST_SECRET=someValueHere
-HARVEST_REDIRECT_URI=someValueHere
+HARVEST_REDIRECT_URI=someValueHere   # must be same as configured in harvestapp.com
 ```
 
-Then run
+Install dependencies by running
 
 ```
 yarn
+```
+
+### Frontend
+
+To start the frontend in production mode run
+
+```
+yarn build
+yarn start-dist
+```
+
+To start the frontend in development mode (webpack-dev-server) run
+```
 yarn start
+```
+
+### Backend
+
+To start the backend run
+
+```
+yarn server
 ```
 
 ## Server API
 
 ### GET /api/auth
 
-Authorizes the user with the Harvest app.
+Authenticates the user with `harvestapp.com`. Redirects to the `harvestapp.com` OAuth URL for authentication and authorization of this app by the user. This endpoint should be called synchronously through a normal `a` tag or `button` for example.
+
+### GET /api/oauth-success?code=_auth\_code_
+
+After the user has been authenticated and has authorized this app, `harvestapp.com` will redirect back to this app's `REDIRECT_URL` as configured in `harvestapp.com`. The redirect URL will be called with a query parameter `code` containing an authentication code for finalizing the authentication.
+
+If you use the supplied frontend, that URL will be the frontend path `/oauth`, and the frontend will call this endpoint to finalize the authentication process.
+
+If you don't use the bundled frontend, you need to call this endpoint with the auth code received from harvestapp.com. The call can be async as it will return a token to be used in all subsequent requests to the API.
+
+#### Request
+
+The request must be made with a `code` parameter containing the authentication code acquired from `harvestapp.com` OAuth process.
+
+**Query parameters**
+
+* `code`: Mandatory authentication code
 
 #### Response
 
@@ -37,6 +93,20 @@ request to the API endpoints.
 }
 ```
 
+### GET /api/account
+
+Gets the account data for the authenticated user. Essentially the same as Harvest's [/account/who_am_i](http://help.getharvest.com/api-v1/introduction/overview/who-am-i/)
+
+#### Request
+
+**Headers**
+
+* `harvest_token`: The client token obtained through the auth process
+
+#### Response
+
+See the [Harvest API](http://help.getharvest.com/api-v1/introduction/overview/who-am-i/)
+
 ### GET /api/report
 
 Gets report data for the authenticated user.
@@ -45,11 +115,11 @@ Gets report data for the authenticated user.
 
 **Headers**
 
-* `harvest_token`: The client token obtained through `/api/auth`
+* `harvest_token`: The client token obtained through the auth process
 
 **Query parameters**
 
-* `startDate`: Mandatory date in `YYYYMMDD` format for how long back in time to calculate the balance.
+* `startDate`: Mandatory date in `YYYYMMDD` format. Logged working hours will be calculated from the start of this date.
 
 #### Response
 
@@ -62,7 +132,11 @@ The response contains the report data.
   "totalWorkingDays": 57,
   "maxWorkingHours": 427.5,
   "totalWorkedHours": 456.9199999999999,
-  "balance": 29.419999999999902
+  "balance": {
+    "value": 29.42,
+    "hours": 29,
+    "minutes": "25"
+  }
 }
 ```
 
