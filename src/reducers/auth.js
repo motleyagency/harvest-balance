@@ -16,16 +16,19 @@ const auth = (state = {}, action) => {
     return Object.assign({}, state, {
       status: "pending",
       token: null,
+      errorDescription: null,
     })
   case LOGIN_SUCCESS:
     return Object.assign({}, state, {
       status: "success",
       token: action.payload,
+      errorDescription: null,
     })
   case LOGIN_ERROR:
     return Object.assign({}, state, {
       status: "error",
       token: null,
+      errorDescription: action.payload,
     })
   case LOGOUT:
     return {}

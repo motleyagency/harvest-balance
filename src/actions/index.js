@@ -24,9 +24,7 @@ export const loginSuccess = token => ({
 
 export const loginError = error => ({
   type: LOGIN_ERROR,
-  payload: {
-    error,
-  },
+  payload: error,
 })
 
 export const logout = () => ({

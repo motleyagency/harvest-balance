@@ -23,7 +23,7 @@
     "cors": "^2.8.1",
     "dotenv-extended": "^1.0.4",
     "express": "^4.15.2",
-    "harvest": "https://github.com/log0ymxm/node-harvest.git",
+    "harvest": "https://github.com/bostrom/node-harvest.git#342bd65abe9da26ca0a0a839a30673de05be2b32",
     "helmet": "^3.4.0",
     "lodash": "^4.17.4",
     "lodash.debounce": "^4.0.8",

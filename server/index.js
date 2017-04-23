@@ -1,7 +1,6 @@
 import express from "express"
 import Harvest from "harvest"
 import { getReport, getAccount } from "./lib/calculator"
-// import { round } from "./lib/util";
 
 require("dotenv-extended").load()
 
@@ -26,14 +25,14 @@ app.get("/api/oauth-success", (req, res) => {
     secret: process.env.HARVEST_SECRET,
   })
 
-  harvest.parseAccessCode(req.query.code, (accessToken) => {
-    // console.log("Grabbed the access token to save", accessToken);
-    res.json({
-      harvest_token: accessToken,
-    })
-  },
-  (err) => {
-    res.status(500).json(err)
+  harvest.parseAccessCode(req.query.code, (err, accessToken) => {
+    if (err) {
+      res.status(500).json(err)
+    } else {
+      res.json({
+        harvest_token: accessToken,
+      })
+    }
   })
 })
 

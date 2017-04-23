@@ -22,7 +22,11 @@ const Row = styled.div`
   height: 100vh;
 `
 
-const Login = ({ authUrl }) => (
+const Error = styled.p`
+  margin-top: 3rem;
+`
+
+const Login = ({ authUrl, auth: { status, errorDescription } }) => (
   <div className="container-fluid">
     <Row className="row">
       <div className="col text-center align-self-center">
@@ -33,6 +37,13 @@ const Login = ({ authUrl }) => (
             Login with Harvest
           </LoginButton>
         </a>
+        {
+          status === "error" && (
+            <Error className="text-danger">
+              {errorDescription}
+            </Error>
+          )
+        }
       </div>
     </Row>
   </div>
@@ -40,6 +51,17 @@ const Login = ({ authUrl }) => (
 
 Login.propTypes = {
   authUrl: PropTypes.string.isRequired,
+  auth: PropTypes.shape({
+    status: PropTypes.string,
+    errorDescription: PropTypes.string,
+  }).isRequired,
+}
+
+Login.defaultProps = {
+  auth: {
+    status: null,
+    errorDescription: null,
+  },
 }
 
 export default Login

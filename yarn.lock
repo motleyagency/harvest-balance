@@ -2990,9 +2990,9 @@ har-validator@~4.2.1:
     ajv "^4.9.1"
     har-schema "^1.0.5"
 
-"harvest@https://github.com/log0ymxm/node-harvest.git":
+"harvest@https://github.com/bostrom/node-harvest.git#342bd65abe9da26ca0a0a839a30673de05be2b32":
   version "0.2.9"
-  resolved "https://github.com/log0ymxm/node-harvest.git#a8fc1456b41658c2159d612fe269a88cc036c098"
+  resolved "https://github.com/bostrom/node-harvest.git#342bd65abe9da26ca0a0a839a30673de05be2b32"
   dependencies:
     append-query "^1.1.0"
     async "^1.5.0"

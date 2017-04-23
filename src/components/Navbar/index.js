@@ -25,16 +25,19 @@ const ProfilePlaceholder = styled.i`
 `
 
 const ProfileToggler = ({ user, ...rest }) => {
+  const divProps = Object.assign({}, rest)
+  delete divProps.type
+
   if (!user) {
     return (
-      <div {...rest}>
+      <div {...divProps}>
         <ProfilePlaceholder className="icon-user" />
       </div>
     )
   }
 
   return (
-    <div {...rest}>
+    <div {...divProps}>
       <Username>{`${user.first_name}`}</Username>
       <ProfilePic src={user.avatar_url} alt={`${user.first_name} ${user.last_name}`} />
     </div>
@@ -52,6 +55,7 @@ const NavbarTogglerFlex = styled(NavbarToggler)`
   padding: 0;
   display: flex;
   align-items: center;
+  border: none;
 `
 
 const Strong = styled.strong`
