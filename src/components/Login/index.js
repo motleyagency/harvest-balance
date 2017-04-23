@@ -5,8 +5,6 @@ import styled from "styled-components"
 import harvestIcon from "../../assets/harvest-h.svg"
 
 const LoginButton = styled(Button)`
-  background-color: #F66621;
-  color: white;
   font-weight: 700;
 `
 
@@ -30,7 +28,7 @@ const Login = ({ authUrl }) => (
       <div className="col text-center align-self-center">
         <H1>Harvest Balance</H1>
         <a href={authUrl}>
-          <LoginButton>
+          <LoginButton color="primary">
             <HarvestLogo src={harvestIcon} alt="Login with Harvest" />
             Login with Harvest
           </LoginButton>

@@ -5,9 +5,8 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } f
 
 const ProfilePic = styled.img`
   border-radius: 100%;
-  border: 2px solid #F66621;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   margin-left: 1rem;
 `
 
@@ -16,7 +15,6 @@ const Username = styled.span`
 
 const ProfilePlaceholder = styled.i`
   border-radius: 100%;
-  border: 2px solid #F66621;
   width: 38px;
   height: 38px;
   margin-left: 1rem;
@@ -56,6 +54,12 @@ const NavbarTogglerFlex = styled(NavbarToggler)`
   align-items: center;
 `
 
+const Strong = styled.strong`
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07rem;
+`
+
 // eslint-disable-next-line no-unused-vars
 class AppNavbar extends React.Component {
   constructor(props) {
@@ -85,9 +89,9 @@ class AppNavbar extends React.Component {
 
     return (
       <div>
-        <Navbar color="faded" fixed="top" light>
+        <Navbar color="primary" fixed="top" inverse>
           <NavbarTogglerFlex right onClick={this.toggle} tag={ProfileToggler} user={user} />
-          <NavbarBrand href="/">Harvest Balance</NavbarBrand>
+          <NavbarBrand href="/"><Strong>Harvest</Strong> Balance</NavbarBrand>
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem className="text-right">

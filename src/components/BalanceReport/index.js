@@ -53,7 +53,7 @@ const BalanceReport = ({ status, report: { balance: { hours, minutes } } }) => {
         <Balance>
           <Hours>{hours}</Hours>
           <H>h</H>
-          <Minutes>{minutes}</Minutes>
+          <Minutes>{Math.abs(minutes)}</Minutes>
           <M>min</M>
         </Balance>
       </div>

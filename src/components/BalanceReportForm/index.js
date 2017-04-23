@@ -38,8 +38,8 @@ class BalanceReportForm extends React.Component {
           <Col xs={12} sm md={3} lg={2} className="pt-2 pt-sm-0">
             <Button
               onClick={this.handleSubmit}
-              className="btn-block" color="primary"
-            >Get report</Button>
+              className="btn-block" color="success"
+            >Get balance</Button>
           </Col>
         </FormGroup>
       </Form>
