@@ -15,7 +15,7 @@ export const get = (harvestClient, { startDate }) => {
   const timeEntriesByUserAsync = Promise.promisify(Reports.timeEntriesByUser, { context: Reports })
 
   const fromDate = moment(startDate)
-  const toDate = moment().add(1, "week")
+  const toDate = moment().add(1, "day").endOf("day")
   const totalWorkingDays = business.weekDays(fromDate, toDate)
   const maxWorkingHours = totalWorkingDays * 7.5
 
