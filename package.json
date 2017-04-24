@@ -1,6 +1,6 @@
 {
   "name": "harvest-balance",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Calculate hour balance using Harvest API",
   "main": "server/index.js",
   "author": "Fredrik Boström <fredrik@fredrikbostrom.net>",
