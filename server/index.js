@@ -1,12 +1,23 @@
 import express from "express"
 import Harvest from "harvest"
 import path from "path"
-import { getReport, getAccount } from "./lib/calculator"
+import { get as getReport } from "./lib/report"
+import { get as getAccount } from "./lib/account"
 
 require("dotenv-extended").load()
 
 const app = express()
 const ROOT_FOLDER = path.resolve(__dirname, "..", "dist")
+
+const getClient = (req) => {
+  const token = req.get("harvest_token")
+  const harvest = new Harvest({
+    subdomain: process.env.HARVEST_SUBDOMAIN,
+    access_token: token,
+  })
+  harvest.balanceAccessToken = token
+  return harvest
+}
 
 app.get("/api/auth", (req, res) => {
   const harvest = new Harvest({
@@ -31,6 +42,7 @@ app.get("/api/oauth-success", (req, res) => {
 
   harvest.parseAccessCode(req.query.code, (err, accessToken) => {
     if (err) {
+      console.error(err)
       res.status(500).json(err)
     } else {
       res.json({
@@ -41,27 +53,21 @@ app.get("/api/oauth-success", (req, res) => {
 })
 
 app.get("/api/account", (req, res) => {
-  const harvest = new Harvest({
-    subdomain: process.env.HARVEST_SUBDOMAIN,
-    access_token: req.get("harvest_token"),
-  })
-  getAccount(harvest).then((account) => {
+  getAccount(getClient(req), {}).then((account) => {
     res.json(account)
   }).catch((err) => {
+    console.error(err)
     res.status(500).json(err)
   })
 })
 
 app.get("/api/balance", (req, res) => {
-  const harvest = new Harvest({
-    subdomain: process.env.HARVEST_SUBDOMAIN,
-    access_token: req.get("harvest_token"),
-  })
   const startDate = req.query.startDate
 
-  getReport(harvest, { startDate }).then((report) => {
+  getReport(getClient(req), { startDate }).then((report) => {
     res.json(report)
   }).catch((err) => {
+    console.error(err)
     res.status(500).json(err)
   })
 })
