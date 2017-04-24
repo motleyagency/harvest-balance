@@ -6,6 +6,7 @@ import { getReport, getAccount } from "./lib/calculator"
 require("dotenv-extended").load()
 
 const app = express()
+const ROOT_FOLDER = path.resolve(__dirname, "..", "dist")
 
 app.get("/api/auth", (req, res) => {
   const harvest = new Harvest({
@@ -65,7 +66,12 @@ app.get("/api/balance", (req, res) => {
   })
 })
 
-app.use("/", express.static(path.join(__dirname, "..", "dist")))
+// all other requests gets forwarded to react
+app.use("/", express.static(ROOT_FOLDER))
+
+app.use((req, res) => {
+  res.sendFile("index.html", { root: ROOT_FOLDER })
+})
 
 app.listen(5000, () => {
   // eslint-disable-next-line no-console
