@@ -26,32 +26,37 @@ const Error = styled.p`
   margin-top: 3rem;
 `
 
-const Login = ({ authUrl, auth: { status, errorDescription } }) => (
-  <div className="container-fluid">
-    <Row className="row">
-      <div className="col text-center align-self-center">
-        <H1>Harvest Balance</H1>
-        <a href={authUrl}>
-          <LoginButton color="primary">
+const Login = ({ getAuthUrl, auth: { status, authUrl, errorDescription } }) => {
+  if (authUrl) {
+    window.location = authUrl
+  }
+
+  return (
+    <div className="container-fluid">
+      <Row className="row">
+        <div className="col text-center align-self-center">
+          <H1>Harvest Balance</H1>
+          <LoginButton color="primary" onClick={getAuthUrl}>
             <HarvestLogo src={harvestIcon} alt="Login with Harvest" />
             Login with Harvest
           </LoginButton>
-        </a>
-        {
-          status === "error" && (
-            <Error className="text-danger">
-              {errorDescription}
-            </Error>
-          )
-        }
-      </div>
-    </Row>
-  </div>
-)
+          {
+            status === "error" && (
+              <Error className="text-danger">
+                {errorDescription}
+              </Error>
+            )
+          }
+        </div>
+      </Row>
+    </div>
+  )
+}
 
 Login.propTypes = {
-  authUrl: PropTypes.string.isRequired,
+  getAuthUrl: PropTypes.func.isRequired,
   auth: PropTypes.shape({
+    authUrl: PropTypes.string,
     status: PropTypes.string,
     errorDescription: PropTypes.string,
   }).isRequired,
@@ -59,6 +64,7 @@ Login.propTypes = {
 
 Login.defaultProps = {
   auth: {
+    authUrl: null,
     status: null,
     errorDescription: null,
   },

@@ -1,6 +1,6 @@
 import { getToken } from "./auth"
 
-const BACKEND_ENDPOINT = `${process.env.BACKEND_URL}/api`
+const BACKEND_ENDPOINT = "/api"
 
 const jsonHeaders = () => new Headers({
   "Content-Type": "application/json",
@@ -14,7 +14,9 @@ const errorChecker = (response) => {
   return response
 }
 
-export const AUTH_URL = `${BACKEND_ENDPOINT}/auth`
+export const getAuthUrl = () => fetch(`${BACKEND_ENDPOINT}/auth`, {
+  headers: jsonHeaders(),
+}).then(errorChecker)
 
 export const handleAuth = authCode => fetch(`${BACKEND_ENDPOINT}/oauth-success?code=${authCode}`, {
   headers: jsonHeaders(),
@@ -29,7 +31,8 @@ export const balanceReport = startDate => fetch(`${BACKEND_ENDPOINT}/balance?sta
 }).then(errorChecker)
 
 export default {
-  AUTH_URL,
+  getAuthUrl,
   handleAuth,
+  account,
   balanceReport,
 }

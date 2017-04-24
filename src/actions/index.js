@@ -1,3 +1,6 @@
+export const AUTH_URL_FETCH = "AUTH_URL_FETCH"
+export const AUTH_URL_SUCCESS = "AUTH_URL_SUCCESS"
+export const AUTH_URL_ERROR = "AUTH_URL_ERROR"
 export const LOGIN = "LOGIN"
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 export const LOGIN_ERROR = "LOGIN_ERROR"
@@ -9,6 +12,21 @@ export const BALANCE_REPORT_FETCH = "BALANCE_REPORT_FETCH"
 export const BALANCE_REPORT_SUCCESS = "BALANCE_REPORT_SUCCESS"
 export const BALANCE_REPORT_ERROR = "BALANCE_REPORT_ERROR"
 
+
+export const fetchAuthUrl = () => ({
+  type: AUTH_URL_FETCH,
+  payload: {},
+})
+
+export const authUrlSuccess = authUrl => ({
+  type: AUTH_URL_SUCCESS,
+  payload: authUrl,
+})
+
+export const authUrlError = error => ({
+  type: AUTH_URL_ERROR,
+  payload: error,
+})
 
 export const login = authCode => ({
   type: LOGIN,

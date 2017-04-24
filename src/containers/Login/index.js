@@ -1,12 +1,18 @@
 import { connect } from "react-redux"
 import Login from "../../components/Login"
-import { AUTH_URL } from "../../lib/harvestBalance"
+import { fetchAuthUrl } from "../../actions"
 
 const mapStateToProps = ({ auth }) => ({
-  authUrl: AUTH_URL,
   auth,
+})
+
+const mapDispatchToProps = dispatch => ({
+  getAuthUrl: () => {
+    dispatch(fetchAuthUrl())
+  },
 })
 
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(Login)

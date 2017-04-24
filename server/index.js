@@ -1,5 +1,6 @@
 import express from "express"
 import Harvest from "harvest"
+import path from "path"
 import { getReport, getAccount } from "./lib/calculator"
 
 require("dotenv-extended").load()
@@ -14,7 +15,9 @@ app.get("/api/auth", (req, res) => {
     secret: process.env.HARVEST_SECRET,
   })
 
-  res.redirect(harvest.getAccessTokenURL())
+  res.json({
+    url: harvest.getAccessTokenURL(),
+  })
 })
 
 app.get("/api/oauth-success", (req, res) => {
@@ -62,7 +65,9 @@ app.get("/api/balance", (req, res) => {
   })
 })
 
+app.use("/", express.static(path.join(__dirname, "..", "dist")))
+
 app.listen(5000, () => {
   // eslint-disable-next-line no-console
-  console.log("Example app listening on port 5000!")
+  console.log("Harvest Balance app running on port 5000!")
 })

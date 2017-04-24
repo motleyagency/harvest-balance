@@ -2,77 +2,98 @@
 
 Calculate your time balance using the Harvest API.
 
-## Installing and running
+## Calculation principles
 
-Make sure you have [nodejs](https://nodejs.org/en/) and [yarn](https://yarnpkg.com) installed.
+The balance is calculated as `{logged working hours} - {total working hours to date}`.
 
-The application consists of a React/Redux frontend and a Node.js backend. You will also need to make changes to your Harvest account.
+Logged working hours are collected from Harvest simply by summing up all logged hours between the given start date and today's date.
 
-### Harvest account
+Total working hours are 7.5 hours times the number of working weekdays since the start date. Working days are Monday to Friday.
 
-You need to register this app in your company's Harvest account to allow authenticating the app over OAuth 2.0. For this webapp to run, you will need
+## Setup
+
+The preferred way of running the app in production is using Docker. Before you can run the app, however, you need to configure your `harvestapp.com` account to allow the app to read data. The next sections describes how to set up the app for running in production mode.
+
+### Harvest account set up
+
+You need to register this app in your company's Harvest account to allow authenticating the app over OAuth 2.0. For this app to run, you will need
 
 * your company's Harvest subdomain (i.e. **youraccount**_.harvestapp.com_)
 * a client ID for this app (acquired when registering this app)
 * a client secret for this app (acquired when registering this app)
-* a redirect URL where to redirect users after authenticating (configured when registering this app, see below)
+* a redirect URL defining where to redirect users after authenticating (configured when registering this app, see below)
 
-**Note:** If you use the frontend bundled with this app, the redirect URL must be the frontend URL `http://apphost.com/oauth`. That page will handle the rest of the OAuth process.
+**Note:** When running this app in Docker, it's enough to configure the redirect URL as the host where the app is running, e.g. `https://harvestbalance.mycompany.com`. For finer granularity you may add `/oauth` to the end of the URL, as this is the path where the app accepts redirects.
 
 See detailed instructions for registering the app on [Harvest's website](http://help.getharvest.com/api-v1/authentication/authentication/oauth/).
 
-### Harvest Balance set up
+### App set up
 
 Create a `.env` file with the following information from the above step (make a copy of `.env.defaults`):
 
 ```
-HARVEST_SUBDOMAIN=someValueHere
-HARVEST_CLIENT_ID=someValueHere
-HARVEST_SECRET=someValueHere
-HARVEST_REDIRECT_URI=someValueHere   # must be same as configured in harvestapp.com
+HARVEST_SUBDOMAIN=yourSubdomain
+HARVEST_CLIENT_ID=yourClientId
+HARVEST_SECRET=yourClientSecret
+HARVEST_REDIRECT_URI=someValueHere   # see below
 ```
 
-Install dependencies by running
+The `HARVEST_REDIRECT_URI` is the exact path where `harvestapp.com` should redirect after authentication. The app is configured to accept redirects at `/oauth`, which means that the value should be `{APP_HOST}/oauth`, where `APP_HOST` is the URL where the app is running.
+
+**Example:**
+
+The app is running at `https://harvestbalance.mycompany.com`. The redirect URL in `harvestapp.com` should be configured as one of
+
+* `https://harvestbalance.mycompany.com`
+* `https://harvestbalance.mycompany.com/oauth`
+* `https://*.mycompany.com`
+* `https://*.mycompany.com/oauth`
+
+The final `.env` file would look like
 
 ```
-yarn
+HARVEST_SUBDOMAIN=mycompanyltd
+HARVEST_CLIENT_ID=4naflAKEHR231NNQA001221Q
+HARVEST_SECRET=JTMsGvnalie43WTi9-A6ZBoeh53daF2A-i18MFSzOOFAE-WFq7--oakRCDKJAR246SHqowlBC7F-zam_qNMcJ4NDwA
+HARVEST_REDIRECT_URI=https://harvestbalance.mycompany.com
 ```
 
-### Frontend
+## Building and running
 
-To start the frontend in production mode run
+If you run this app from the Docker Hub, simply start it with
 
-```
-yarn build
-yarn start-dist
-```
+`docker run --env-file .env -P bostrom/harvest-balance:latest`
 
-To start the frontend in development mode (webpack-dev-server) run
-```
-yarn start
-```
+If you downloaded the source, first build the Docker image with
 
-### Backend
+`docker build -t harvest-balance:local .`
 
-To start the backend run
+and then run it with
 
-```
-yarn server
-```
+`docker run --env-file .env -P harvest-balance:local`
+
+The app will be available at the local port that Docker assigned to the running container (check with `docker ps -a`).
+
+**Note:** You will have to modify the redirect URL values both in `.env` and your Harvest account if you run it locally.
+
 
 ## Server API
 
 ### GET /api/auth
 
-Authenticates the user with `harvestapp.com`. Redirects to the `harvestapp.com` OAuth URL for authentication and authorization of this app by the user. This endpoint should be called synchronously through a normal `a` tag or `button` for example.
+Returns an authentication URL for authenting the user with `harvestapp.com`. The client should redirect the user to the URL to initiate the authentication process.
+
+#### Response
+
+```
+{
+  "url": "https://myaccount.harvestapp.com/...."
+}
+```
 
 ### GET /api/oauth-success?code=_auth\_code_
 
-After the user has been authenticated and has authorized this app, `harvestapp.com` will redirect back to this app's `REDIRECT_URL` as configured in `harvestapp.com`. The redirect URL will be called with a query parameter `code` containing an authentication code for finalizing the authentication.
-
-If you use the supplied frontend, that URL will be the frontend path `/oauth`, and the frontend will call this endpoint to finalize the authentication process.
-
-If you don't use the bundled frontend, you need to call this endpoint with the auth code received from harvestapp.com. The call can be async as it will return a token to be used in all subsequent requests to the API.
+After the user has been authenticated and has authorized this app, `harvestapp.com` will redirect back to this app's `REDIRECT_URL` as configured in `.env`. The redirect URL will be called with a query parameter `code` containing an authentication code for finalizing the authentication.
 
 #### Request
 
@@ -140,11 +161,16 @@ The response contains the report data.
 }
 ```
 
-## Calculation principles
+## Development
 
-The balance is calculated as `{logged working hours} - {total working hours to date}`.
+To start the app in development mode, clone the repository and run
 
-Logged working hours are collected from Harvest simply by summing up all logged hours between the given start date and today's date.
+```
+yarn
+yarn start   # starts webpack-dev-server
+yarn server  # in another terminal, starts the backend
+```
 
-Total working hours are 7.5 hours times the number of working weekdays since the start date. Working days are Monday to Friday.
+## License
 
+[ISC License (ISC)](LICENSE)

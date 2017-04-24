@@ -1,8 +1,11 @@
 import { call, put, takeLatest } from "redux-saga/effects"
 import {
+  AUTH_URL_FETCH,
   LOGIN,
   PROFILE_FETCH,
   BALANCE_REPORT_FETCH,
+  authUrlSuccess,
+  authUrlError,
   loginSuccess,
   loginError,
   profileSuccess,
@@ -10,7 +13,21 @@ import {
   balanceReportSuccess,
   balanceReportError,
 } from "../actions"
-import { handleAuth, balanceReport, account } from "../lib/harvestBalance"
+import { getAuthUrl, handleAuth, balanceReport, account } from "../lib/harvestBalance"
+
+export function* fetchAuthUrl() {
+  try {
+    const authUrlResponse = yield call(getAuthUrl)
+    const authUrlResponseJson = yield authUrlResponse.json()
+    yield put(authUrlSuccess(authUrlResponseJson.url))
+  } catch (err) {
+    yield put(authUrlError(yield err.json()))
+  }
+}
+
+export function* watchAuthUrlFetch() {
+  yield takeLatest(AUTH_URL_FETCH, fetchAuthUrl)
+}
 
 export function* login(action) {
   try {
@@ -54,6 +71,7 @@ export function* watchProfileFetch() {
 
 export function* rootSaga() {
   yield [
+    watchAuthUrlFetch(),
     watchLogin(),
     watchProfileFetch(),
     watchBalanceReport(),
