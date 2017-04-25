@@ -4,9 +4,11 @@ Calculate your time balance using the Harvest API.
 
 ## Calculation principles
 
-The balance is calculated as `{logged working hours} - {total working hours to date}`.
+The balance is calculated as `{logged working hours} - {logged deductible hours} - {total working hours to date}`.
 
-Logged working hours are collected from Harvest simply by summing up all logged hours between the given start date and today's date.
+Logged working hours are collected from Harvest simply by summing up all logged (non-deductible) hours between the given start date and today's date.
+
+Deductible hours are hours from tasks that are included in the `DEDUCTIBLE_TASKS` environment variable (see below).
 
 Total working hours are 7.5 hours times the number of working weekdays since the start date. Working days are Monday to Friday.
 
@@ -36,9 +38,12 @@ HARVEST_SUBDOMAIN=yourSubdomain
 HARVEST_CLIENT_ID=yourClientId
 HARVEST_SECRET=yourClientSecret
 HARVEST_REDIRECT_URI=someValueHere   # see below
+DEDUCTIBLE_TASKS=['Overtime holiday', 'Something else']
 ```
 
 The `HARVEST_REDIRECT_URI` is the exact path where `harvestapp.com` should redirect after authentication. The app is configured to accept redirects at `/oauth`, which means that the value should be `{APP_HOST}/oauth`, where `APP_HOST` is the URL where the app is running.
+
+The `DEDUCTIBLE_TASKS` is an array of task names of the tasks that should be deducted from the cumulative balance. I.e. if "Overtime holiday" is specified, all logged "Overtime holiday" hours will subtract from the balance instead of adding to it.
 
 **Example:**
 
