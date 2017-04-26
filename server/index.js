@@ -19,6 +19,14 @@ const getClient = (req) => {
   return harvest
 }
 
+const handleError = (err, res) => {
+  if (err.error === "invalid_token") {
+    res.status(401).json(err)
+  } else {
+    res.status(500).json(err)
+  }
+}
+
 app.get("/api/auth", (req, res) => {
   const harvest = new Harvest({
     subdomain: process.env.HARVEST_SUBDOMAIN,
@@ -43,7 +51,7 @@ app.get("/api/oauth-success", (req, res) => {
   harvest.parseAccessCode(req.query.code, (err, accessToken) => {
     if (err) {
       console.error(err)
-      res.status(500).json(err)
+      handleError(err, res)
     } else {
       res.json({
         harvest_token: accessToken,
@@ -57,7 +65,7 @@ app.get("/api/account", (req, res) => {
     res.json(account)
   }).catch((err) => {
     console.error(err)
-    res.status(500).json(err)
+    handleError(err, res)
   })
 })
 
@@ -68,7 +76,7 @@ app.get("/api/balance", (req, res) => {
     res.json(report)
   }).catch((err) => {
     console.error(err)
-    res.status(500).json(err)
+    handleError(err, res)
   })
 })
 

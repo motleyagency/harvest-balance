@@ -8,6 +8,7 @@ import {
   authUrlError,
   loginSuccess,
   loginError,
+  logout,
   profileSuccess,
   profileError,
   balanceReportSuccess,
@@ -15,13 +16,21 @@ import {
 } from "../actions"
 import { getAuthUrl, handleAuth, balanceReport, account } from "../lib/harvestBalance"
 
+function* handleError(error, errorAction) {
+  if (error.status === 401) {
+    yield put(logout())
+  } else {
+    yield put(errorAction(yield error.json()))
+  }
+}
+
 export function* fetchAuthUrl() {
   try {
     const authUrlResponse = yield call(getAuthUrl)
     const authUrlResponseJson = yield authUrlResponse.json()
     yield put(authUrlSuccess(authUrlResponseJson.url))
   } catch (err) {
-    yield put(authUrlError(yield err.json()))
+    yield handleError(err, authUrlError)
   }
 }
 
@@ -35,7 +44,7 @@ export function* login(action) {
     const authResponseJson = yield authResponse.json()
     yield put(loginSuccess(authResponseJson.harvest_token))
   } catch (err) {
-    yield put(loginError(yield err.json()))
+    yield handleError(err, loginError)
   }
 }
 
@@ -48,7 +57,7 @@ export function* fetchBalanceReport(action) {
     const response = yield call(balanceReport, action.payload.startDate)
     yield put(balanceReportSuccess(yield response.json()))
   } catch (err) {
-    yield put(balanceReportError(yield err.json()))
+    yield handleError(err, balanceReportError)
   }
 }
 
@@ -61,7 +70,7 @@ export function* fetchProfile() {
     const response = yield call(account)
     yield put(profileSuccess(yield response.json()))
   } catch (err) {
-    yield put(profileError(yield err.json()))
+    yield handleError(err, profileError)
   }
 }
 
