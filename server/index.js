@@ -8,6 +8,7 @@ require("dotenv-extended").load()
 
 const app = express()
 const ROOT_FOLDER = path.resolve(__dirname, "..", "dist")
+const PORT = process.env.SERVER_PORT || 5000
 
 const getClient = (req) => {
   const token = req.get("harvest_token")
@@ -87,7 +88,7 @@ app.use((req, res) => {
   res.sendFile("index.html", { root: ROOT_FOLDER })
 })
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log("Harvest Balance app running on port 5000!")
+  console.log(`Harvest Balance app running on port ${PORT}!`)
 })

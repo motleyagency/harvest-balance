@@ -140,7 +140,7 @@ default:
     }),
     parts.devProxy({
       "/api": {
-        target: "http://localhost:5000"
+        target: `http://localhost:${process.env.SERVER_PORT || 5000}`
       }
     }),
     parts.enableReactPerformanceTools()

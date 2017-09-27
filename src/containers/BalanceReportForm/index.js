@@ -3,11 +3,13 @@ import moment from "moment"
 import BalanceReportForm from "../../components/BalanceReportForm"
 import { balanceReportFetch, balanceReportError } from "../../actions"
 
-const mapStateToProps = () => ({})
+const mapStateToProps = () => ({
+  startDate: moment().startOf("year").format("YYYY-MM-DD"),
+})
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: (startDate) => {
-    const date = moment(startDate)
+    const date = moment.utc(startDate)
     if (!date.isValid()) {
       dispatch(balanceReportError("Invalid date"))
     } else {

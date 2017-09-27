@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
+import BalanceReportDetails from "../BalanceReportDetails"
 
 const Header = styled.div `
   font-size: 1.5rem;
@@ -31,7 +32,7 @@ const M = styled.span`
   margin-left: 0.2rem;
 `
 
-const BalanceReport = ({ status, report: { balance: { hours, minutes } } }) => {
+const BalanceReport = ({ status, report: { balance: { hours, minutes }, entries, dayTotals } }) => {
   switch (status) {
   case "pending":
     return (
@@ -56,6 +57,7 @@ const BalanceReport = ({ status, report: { balance: { hours, minutes } } }) => {
           <Minutes>{Math.abs(minutes)}</Minutes>
           <M>min</M>
         </Balance>
+        <BalanceReportDetails entries={entries} dayTotals={dayTotals} />
       </div>
     )
   default:
@@ -72,6 +74,8 @@ BalanceReport.defaultProps = {
       hours: null,
       minutes: null,
     },
+    entries: [],
+    dayTotals: {},
   },
 }
 
@@ -82,6 +86,8 @@ BalanceReport.propTypes = {
       hours: PropTypes.number,
       minutes: PropTypes.number,
     }),
+    entries: PropTypes.arrayOf(PropTypes.shape({})),
+    dayTotals: PropTypes.shape({}),
   }),
 }
 
