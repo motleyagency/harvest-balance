@@ -42,8 +42,10 @@ export const get = (harvestClient, { startDate }) => {
         user_id: userId,
       }),
     ])
-  }).then(([clients, projects, tasks, entries]) => {
-    console.log(clients)
+  }).then(([clients, projects, tasks, entries]) => { // eslint-disable-line
+    // console.log(projects)
+    // console.log(clients)
+    // console.log(tasks)
     let cumulativeBalance = 0.0
     const dayTotals = {}
 
@@ -77,9 +79,9 @@ export const get = (harvestClient, { startDate }) => {
       dayTotals[dayDate].day_entries = entries
       .filter(({ day_entry }) => day_entry.spent_at === dayDate)
       .map(({ day_entry: dayEntry }) => {
-        const project = projects[dayEntry.project_id]
+        const project = {} // projects[dayEntry.project_id]
         const client = {} // clients[project.project.client_id]
-        const task = tasks[dayEntry.task_id]
+        const task = {} // tasks[dayEntry.task_id]
 
         // deductible tasks reduce the logged time from the
         // total balance instead of adding to it
@@ -94,7 +96,7 @@ export const get = (harvestClient, { startDate }) => {
         // overtime holiday 7.5
         // some task 2.5
         // balance: -5
-        if (deductibles.includes(task.task.name)) {
+        if (deductibles.includes(dayEntry.task_id)) {
           // reduce the logged hours from cumulative hours
           dayTotals[dayDate].logged_hours -= dayEntry.hours
           // deductible days leave the day balance at -hoursPerDay,
