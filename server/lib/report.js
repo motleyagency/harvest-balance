@@ -43,6 +43,7 @@ export const get = (harvestClient, { startDate }) => {
       }),
     ])
   }).then(([clients, projects, tasks, entries]) => {
+    console.log(clients)
     let cumulativeBalance = 0.0
     const dayTotals = {}
 
@@ -77,7 +78,7 @@ export const get = (harvestClient, { startDate }) => {
       .filter(({ day_entry }) => day_entry.spent_at === dayDate)
       .map(({ day_entry: dayEntry }) => {
         const project = projects[dayEntry.project_id]
-        const client = clients[project.project.client_id]
+        const client = {} // clients[project.project.client_id]
         const task = tasks[dayEntry.task_id]
 
         // deductible tasks reduce the logged time from the
