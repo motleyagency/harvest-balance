@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import NavbarContainer from "./../NavbarContainer";
-import { Link, useRouter } from "./../../util/router.js";
-import SectionButton from "./../SectionButton";
-import { useAuth } from "./../../util/auth.js";
-import "./styles.scss";
+import React, { Fragment, useState } from 'react';
+import NavbarContainer from './../NavbarContainer';
+import { Link, useRouter } from './../../util/router.js';
+import SectionButton from './../SectionButton';
+import { useAuth } from './../../util/auth.js';
+import './styles.scss';
 
 function Navbar(props) {
   const auth = useAuth();
@@ -20,7 +20,7 @@ function Navbar(props) {
             </Link>
           </div>
           <div
-            className={"navbar-burger burger" + (menuOpen ? " is-active" : "")}
+            className={'navbar-burger burger' + (menuOpen ? ' is-active' : '')}
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <span />
@@ -28,7 +28,7 @@ function Navbar(props) {
             <span />
           </div>
         </div>
-        <div className={"navbar-menu" + (menuOpen ? " is-active" : "")}>
+        <div className={'navbar-menu' + (menuOpen ? ' is-active' : '')}>
           <div className="navbar-end">
             <Link className="navbar-item" to="/about">
               About
@@ -64,7 +64,7 @@ function Navbar(props) {
             )}
 
             {!auth.user && (
-              <>
+              <Fragment>
                 <Link className="navbar-item" to="/signin">
                   Sign in
                 </Link>
@@ -73,13 +73,13 @@ function Navbar(props) {
                     parentColor={props.color}
                     size="normal"
                     onClick={() => {
-                      router.push("/signup");
+                      router.push('/signup');
                     }}
                   >
                     Sign Up
                   </SectionButton>
                 </div>
-              </>
+              </Fragment>
             )}
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Navbar from './../../components/Navbar';
 import SignInSection from './../../components/SignInSection';
 import Footer from './../../components/Footer';
@@ -6,7 +6,7 @@ import './styles.scss';
 
 function HomePage(props) {
   return (
-    <>
+    <Fragment>
       <Navbar
         color="white"
         spaced={true}
@@ -25,7 +25,7 @@ function HomePage(props) {
         logo="https://uploads.divjoy.com/logo.svg"
         copyright="© 2019 Company"
       />
-    </>
+    </Fragment>
   );
 }
 

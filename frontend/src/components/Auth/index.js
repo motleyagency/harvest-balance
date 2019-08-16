@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import FormStatus from './../FormStatus';
 import FormField from './../FormField';
 import SectionButton from './../SectionButton';
@@ -143,17 +143,17 @@ function Auth(props) {
         {['signup', 'signin'].includes(props.mode) && (
           <div className="Auth__bottom-link has-text-centered">
             {props.mode === 'signup' && (
-              <>
+              <Fragment>
                 Have an account already?
                 <Link to="/signin">Sign in</Link>
-              </>
+              </Fragment>
             )}
 
             {props.mode === 'signin' && (
-              <>
+              <Fragment>
                 <Link to="/signup">Create an account</Link>
                 <Link to="/forgotpass">Forgot password</Link>
-              </>
+              </Fragment>
             )}
           </div>
         )}
