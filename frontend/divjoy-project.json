@@ -1,0 +1,1755 @@
+{
+  "data": [
+    {
+      "type": "instance",
+      "subtype": "app-instance",
+      "componentId": "app",
+      "id": 4010090,
+      "isVisible": true,
+      "children": []
+    }
+  ],
+  "components": [
+    {
+      "type": "component",
+      "name": "Navbar Container",
+      "id": 3871614,
+      "children": [
+        {
+          "type": "element",
+          "tagName": "nav",
+          "classNames": [
+            "navbar"
+          ],
+          "children": [
+            {
+              "type": "children",
+              "id": 3170614,
+              "isVisible": true,
+              "children": []
+            }
+          ],
+          "classNameExpressions": [
+            {
+              "js": "props.color",
+              "classNames": [
+                "is-{props.color}"
+              ]
+            },
+            {
+              "js": "props.spaced",
+              "classNames": [
+                "is-spaced"
+              ]
+            }
+          ],
+          "id": 6664260,
+          "isVisible": true,
+          "attributes": "{\n\n}",
+          "image": "",
+          "name": "",
+          "style": ""
+        }
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "tags": [],
+      "code": "",
+      "nameFormatted": "NavbarContainer",
+      "modulePath": "components/NavbarContainer"
+    },
+    {
+      "type": "component",
+      "name": "Navbar",
+      "code": "  const auth = useAuth();\n\tconst router = useRouter();\n\tconst [menuOpen, setMenuOpen] = useState(false);\n",
+      "id": 4913234,
+      "children": [
+        {
+          "type": "instance",
+          "componentId": 3871614,
+          "attributes": "{\n\tspaced: props.spaced,\n  color: props.color\n}",
+          "children": [
+            {
+              "type": "element",
+              "tagName": "div",
+              "classNames": [
+                "container"
+              ],
+              "children": [
+                {
+                  "type": "element",
+                  "tagName": "div",
+                  "classNames": [
+                    "navbar-brand"
+                  ],
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "div",
+                      "classNames": [
+                        "navbar-item"
+                      ],
+                      "children": [
+                        {
+                          "type": "element",
+                          "tagName": "a",
+                          "attributes": "{\n  href: '/' \n}",
+                          "children": [
+                            {
+                              "type": "element",
+                              "tagName": "img",
+                              "attributes": "{\n  src: props.logo,\n  alt: \"Logo\"\n}",
+                              "classNames": [
+                                "image"
+                              ],
+                              "id": 8075910,
+                              "isVisible": true,
+                              "image": "",
+                              "name": "",
+                              "classNameExpressions": [],
+                              "style": "",
+                              "children": []
+                            }
+                          ],
+                          "id": 2525715,
+                          "isVisible": true,
+                          "image": "",
+                          "name": "",
+                          "classNames": [],
+                          "classNameExpressions": [],
+                          "style": ""
+                        }
+                      ],
+                      "id": 8146975,
+                      "isVisible": true,
+                      "attributes": "{\n\n}",
+                      "image": "",
+                      "name": "",
+                      "classNameExpressions": [],
+                      "style": ""
+                    },
+                    {
+                      "type": "element",
+                      "tagName": "div",
+                      "children": [
+                        {
+                          "type": "element",
+                          "tagName": "span",
+                          "id": 6684716,
+                          "isVisible": true,
+                          "attributes": "{\n\n}",
+                          "image": "",
+                          "name": "",
+                          "classNames": [],
+                          "classNameExpressions": [],
+                          "style": "",
+                          "children": []
+                        },
+                        {
+                          "type": "element",
+                          "tagName": "span",
+                          "id": 5720571,
+                          "isVisible": true,
+                          "attributes": "{\n\n}",
+                          "image": "",
+                          "name": "",
+                          "classNames": [],
+                          "classNameExpressions": [],
+                          "style": "",
+                          "children": []
+                        },
+                        {
+                          "type": "element",
+                          "tagName": "span",
+                          "id": 9105580,
+                          "isVisible": true,
+                          "attributes": "{\n\n}",
+                          "image": "",
+                          "name": "",
+                          "classNames": [],
+                          "classNameExpressions": [],
+                          "style": "",
+                          "children": []
+                        }
+                      ],
+                      "classNames": [
+                        "navbar-burger",
+                        "burger"
+                      ],
+                      "attributes": "{\n  onClick: () => setMenuOpen(!menuOpen)\n}",
+                      "classNameExpressions": [
+                        {
+                          "js": "menuOpen",
+                          "classNames": [
+                            "is-active"
+                          ]
+                        }
+                      ],
+                      "id": 1998027,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "style": ""
+                    }
+                  ],
+                  "id": 3192103,
+                  "isVisible": true,
+                  "attributes": "{\n\n}",
+                  "image": "",
+                  "name": "",
+                  "classNameExpressions": [],
+                  "style": ""
+                },
+                {
+                  "type": "element",
+                  "tagName": "div",
+                  "classNames": [
+                    "navbar-menu"
+                  ],
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "div",
+                      "classNames": [
+                        "navbar-end"
+                      ],
+                      "children": [
+                        {
+                          "type": "element",
+                          "tagName": "a",
+                          "classNames": [
+                            "navbar-item"
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "text": "About",
+                              "id": 3029535,
+                              "isVisible": true,
+                              "children": []
+                            }
+                          ],
+                          "attributes": "{\n  href: '/about' \n}",
+                          "id": 8359544,
+                          "isVisible": true,
+                          "image": "",
+                          "name": "",
+                          "classNameExpressions": [],
+                          "style": ""
+                        },
+                        {
+                          "type": "element",
+                          "tagName": "a",
+                          "attributes": "{\n  href: '/pricing' \n}",
+                          "children": [
+                            {
+                              "type": "text",
+                              "text": "Pricing",
+                              "id": 605389,
+                              "isVisible": true,
+                              "children": []
+                            }
+                          ],
+                          "classNames": [
+                            "navbar-item"
+                          ],
+                          "id": 5496177,
+                          "isVisible": true,
+                          "image": "",
+                          "name": "",
+                          "classNameExpressions": [],
+                          "style": ""
+                        },
+                        {
+                          "type": "element",
+                          "tagName": "a",
+                          "attributes": "{\n  href: '/faq' \n}",
+                          "children": [
+                            {
+                              "type": "text",
+                              "text": "FAQ",
+                              "id": 2265416,
+                              "isVisible": true,
+                              "children": []
+                            }
+                          ],
+                          "classNames": [
+                            "navbar-item"
+                          ],
+                          "id": 912787,
+                          "isVisible": true,
+                          "image": "",
+                          "name": "",
+                          "classNameExpressions": [],
+                          "style": ""
+                        },
+                        {
+                          "type": "if",
+                          "js": "auth.user",
+                          "children": [
+                            {
+                              "type": "element",
+                              "tagName": "div",
+                              "classNames": [
+                                "navbar-item",
+                                "has-dropdown",
+                                "is-hoverable"
+                              ],
+                              "children": [
+                                {
+                                  "type": "element",
+                                  "tagName": "a",
+                                  "attributes": "{\n  href: '/' \n}",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "text": "Account",
+                                      "id": 5260525,
+                                      "isVisible": true,
+                                      "children": []
+                                    }
+                                  ],
+                                  "classNames": [
+                                    "navbar-link"
+                                  ],
+                                  "id": 7793508,
+                                  "isVisible": true,
+                                  "image": "",
+                                  "name": "",
+                                  "classNameExpressions": [],
+                                  "style": ""
+                                },
+                                {
+                                  "type": "element",
+                                  "tagName": "div",
+                                  "classNames": [
+                                    "navbar-dropdown",
+                                    "is-boxed"
+                                  ],
+                                  "children": [
+                                    {
+                                      "type": "element",
+                                      "tagName": "a",
+                                      "attributes": "{\n  href: '/dashboard'\n}",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "text": "Dashboard",
+                                          "id": 1807779,
+                                          "isVisible": true,
+                                          "children": []
+                                        }
+                                      ],
+                                      "classNames": [
+                                        "navbar-item"
+                                      ],
+                                      "id": 9645039,
+                                      "isVisible": true,
+                                      "image": "",
+                                      "name": "",
+                                      "classNameExpressions": [],
+                                      "style": ""
+                                    },
+                                    {
+                                      "type": "element",
+                                      "tagName": "a",
+                                      "attributes": "{\n  href: \"/signout\",\n  onClick: (e) => {\n    e.preventDefault();\n    auth.signout();\n  }\n}",
+                                      "children": [
+                                        {
+                                          "type": "text",
+                                          "text": "Sign out",
+                                          "id": 4050321,
+                                          "isVisible": true,
+                                          "children": []
+                                        }
+                                      ],
+                                      "classNames": [
+                                        "navbar-item"
+                                      ],
+                                      "id": 23214,
+                                      "isVisible": true,
+                                      "image": "",
+                                      "name": "",
+                                      "classNameExpressions": [],
+                                      "style": ""
+                                    }
+                                  ],
+                                  "id": 8515983,
+                                  "isVisible": true,
+                                  "attributes": "{\n\n}",
+                                  "image": "",
+                                  "name": "",
+                                  "classNameExpressions": [],
+                                  "style": ""
+                                }
+                              ],
+                              "id": 7946554,
+                              "isVisible": true,
+                              "attributes": "{\n\n}",
+                              "image": "",
+                              "name": "",
+                              "classNameExpressions": [],
+                              "style": ""
+                            }
+                          ],
+                          "id": 2397700,
+                          "isVisible": true
+                        },
+                        {
+                          "type": "if",
+                          "js": "!auth.user",
+                          "id": 3773595,
+                          "children": [
+                            {
+                              "type": "element",
+                              "tagName": "a",
+                              "attributes": "{\n  href: '/signin' \n}",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "text": "Sign in",
+                                  "id": 6290876,
+                                  "isVisible": true,
+                                  "children": []
+                                }
+                              ],
+                              "classNames": [
+                                "navbar-item"
+                              ],
+                              "id": 7290800,
+                              "isVisible": true,
+                              "image": "",
+                              "name": "",
+                              "classNameExpressions": [],
+                              "style": ""
+                            },
+                            {
+                              "type": "element",
+                              "tagName": "div",
+                              "children": [
+                                {
+                                  "type": "instance",
+                                  "componentId": 8669042,
+                                  "attributes": "{\n\tparentColor: props.color,\n  size: \"normal\",\n  onClick: () => {\n    router.push('/signup');\n  }\n}",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "text": "Sign Up",
+                                      "id": 3970322,
+                                      "isVisible": true,
+                                      "children": []
+                                    }
+                                  ],
+                                  "id": 3402869,
+                                  "isVisible": true
+                                }
+                              ],
+                              "classNames": [
+                                "navbar-item"
+                              ],
+                              "id": 8182136,
+                              "isVisible": true,
+                              "attributes": "{\n\n}",
+                              "image": "",
+                              "name": "",
+                              "classNameExpressions": [],
+                              "style": ""
+                            }
+                          ],
+                          "isVisible": true
+                        }
+                      ],
+                      "id": 4733153,
+                      "isVisible": true,
+                      "attributes": "{\n\n}",
+                      "image": "",
+                      "name": "",
+                      "classNameExpressions": [],
+                      "style": ""
+                    }
+                  ],
+                  "classNameExpressions": [
+                    {
+                      "js": "menuOpen",
+                      "classNames": [
+                        "is-active"
+                      ]
+                    }
+                  ],
+                  "id": 2776218,
+                  "isVisible": true,
+                  "attributes": "{\n\n}",
+                  "image": "",
+                  "name": "",
+                  "style": ""
+                }
+              ],
+              "id": 8399104,
+              "isVisible": true,
+              "attributes": "{\n\n}",
+              "image": "",
+              "name": "",
+              "classNameExpressions": [],
+              "style": ""
+            }
+          ],
+          "id": 4040514,
+          "isVisible": true
+        }
+      ],
+      "tags": [
+        "Navigation",
+        "Popular"
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "nameFormatted": "Navbar",
+      "modulePath": "components/Navbar"
+    },
+    {
+      "type": "component",
+      "name": "Section Button",
+      "id": 8669042,
+      "children": [
+        {
+          "type": "element",
+          "tagName": "button",
+          "classNames": [
+            "button"
+          ],
+          "children": [
+            {
+              "type": "children",
+              "id": 776571,
+              "isVisible": true,
+              "children": []
+            }
+          ],
+          "attributes": "{\n  ...otherProps\n}",
+          "classNameExpressions": [
+            {
+              "js": "['primary', 'info', 'success', 'warning', 'danger', 'black', 'dark'].includes(parentColor)",
+              "classNames": [
+                "is-{parentColor}",
+                "is-inverted"
+              ]
+            },
+            {
+              "js": " ['white', 'light'].includes(parentColor) || !parentColor",
+              "classNames": [
+                "is-primary"
+              ]
+            },
+            {
+              "js": "size",
+              "classNames": [
+                "is-{size}"
+              ]
+            },
+            {
+              "js": "state",
+              "classNames": [
+                "is-{state}"
+              ]
+            },
+            {
+              "js": "fullWidth",
+              "classNames": [
+                "is-fullwidth"
+              ]
+            }
+          ],
+          "id": 7815642,
+          "isVisible": true,
+          "image": "",
+          "name": "",
+          "style": ""
+        }
+      ],
+      "description": "A button whose color is determined by the background color of its parent component (passed in via `parentColor` prop).",
+      "code": "\tconst {\n    parentColor, \n    size, \n    state, \n    fullWidth,\n    // Passed to button element\n    ...otherProps\n  } = props;\n",
+      "isVisible": true,
+      "nameLibrary": "",
+      "tags": [],
+      "nameFormatted": "SectionButton",
+      "modulePath": "components/SectionButton"
+    },
+    {
+      "type": "component",
+      "name": "Section",
+      "id": 1079246,
+      "children": [
+        {
+          "type": "element",
+          "tagName": "section",
+          "classNames": [
+            "hero",
+            "section",
+            "is-block",
+            "is-relative"
+          ],
+          "classNameExpressions": [
+            {
+              "js": "color",
+              "classNames": [
+                "is-{color}"
+              ]
+            },
+            {
+              "js": "size",
+              "classNames": [
+                "is-{size}"
+              ]
+            }
+          ],
+          "children": [
+            {
+              "type": "if",
+              "js": "backgroundImage",
+              "children": [
+                {
+                  "type": "instance",
+                  "componentId": 1986700,
+                  "attributes": "{\n\timage: backgroundImage,\n  opacity: backgroundImageOpacity\n}",
+                  "id": 6976618,
+                  "isVisible": true,
+                  "children": []
+                }
+              ],
+              "id": 4689902,
+              "isVisible": true
+            },
+            {
+              "type": "children",
+              "id": 6313629,
+              "isVisible": true,
+              "children": []
+            }
+          ],
+          "attributes": "{\n\t...otherProps\n}",
+          "style": "// Add light border if two white\n// sections next to each other.\n.is-white + &.is-white {\n  border-top: 1px solid #F0F0F0;\n}",
+          "id": 7573224,
+          "isVisible": true,
+          "image": "",
+          "name": ""
+        }
+      ],
+      "code": "\tconst {\n    color, \n    size, \n    backgroundImage,\n    backgroundImageOpacity,\n    children,\n    // Passed to section element\n    ...otherProps \n  } = props;\n",
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "tags": [],
+      "nameFormatted": "Section",
+      "modulePath": "components/Section"
+    },
+    {
+      "type": "component",
+      "name": "Footer",
+      "id": 203216,
+      "children": [
+        {
+          "type": "instance",
+          "componentId": 1079246,
+          "attributes": "{\n\tcolor: props.color,\n  size: props.size\n}",
+          "children": [
+            {
+              "type": "element",
+              "tagName": "div",
+              "classNames": [
+                "container"
+              ],
+              "children": [
+                {
+                  "type": "element",
+                  "tagName": "div",
+                  "classNames": [
+                    "brand",
+                    "left"
+                  ],
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "a",
+                      "attributes": "{\n  href: '/' \n}",
+                      "children": [
+                        {
+                          "type": "element",
+                          "tagName": "img",
+                          "attributes": "{\n  src: props.logo,\n  alt: \"Logo\"\n}",
+                          "id": 782650,
+                          "isVisible": true,
+                          "image": "",
+                          "name": "",
+                          "classNames": [],
+                          "classNameExpressions": [],
+                          "style": "",
+                          "children": []
+                        }
+                      ],
+                      "id": 4753230,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNames": [],
+                      "classNameExpressions": [],
+                      "style": ""
+                    }
+                  ],
+                  "id": 6328584,
+                  "isVisible": true,
+                  "attributes": "{\n\n}",
+                  "image": "",
+                  "name": "",
+                  "classNameExpressions": [],
+                  "style": ""
+                },
+                {
+                  "type": "element",
+                  "tagName": "div",
+                  "classNames": [
+                    "links",
+                    "right"
+                  ],
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "a",
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "About",
+                          "id": 4566084,
+                          "isVisible": true,
+                          "children": []
+                        }
+                      ],
+                      "attributes": "{\n\thref: '/about'\n}",
+                      "id": 5142584,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNames": [],
+                      "classNameExpressions": [],
+                      "style": ""
+                    },
+                    {
+                      "type": "element",
+                      "tagName": "a",
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "FAQ",
+                          "id": 41141,
+                          "isVisible": true,
+                          "children": []
+                        }
+                      ],
+                      "attributes": "{\n\thref: '/faq',\n}",
+                      "id": 7264362,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNames": [],
+                      "classNameExpressions": [],
+                      "style": ""
+                    },
+                    {
+                      "type": "element",
+                      "tagName": "a",
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "Contact",
+                          "id": 9366721,
+                          "isVisible": true,
+                          "children": []
+                        }
+                      ],
+                      "attributes": "{\n\thref: '/contact',\n}",
+                      "id": 2333053,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNames": [],
+                      "classNameExpressions": [],
+                      "style": ""
+                    },
+                    {
+                      "type": "element",
+                      "tagName": "a",
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "Blog",
+                          "id": 8263046,
+                          "isVisible": true,
+                          "children": []
+                        }
+                      ],
+                      "attributes": "{\n  target: \"_blank\",\n  href: \"https://medium.com\",\n  rel: \"noopener noreferrer\"\n}",
+                      "id": 5194689,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNames": [],
+                      "classNameExpressions": [],
+                      "style": ""
+                    }
+                  ],
+                  "id": 847974,
+                  "isVisible": true,
+                  "attributes": "{\n\n}",
+                  "image": "",
+                  "name": "",
+                  "classNameExpressions": [],
+                  "style": ""
+                },
+                {
+                  "type": "element",
+                  "tagName": "div",
+                  "classNames": [
+                    "social",
+                    "right"
+                  ],
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "a",
+                      "children": [
+                        {
+                          "type": "element",
+                          "tagName": "span",
+                          "classNames": [
+                            "icon"
+                          ],
+                          "children": [
+                            {
+                              "type": "element",
+                              "tagName": "i",
+                              "classNames": [
+                                "fab",
+                                "fa-twitter"
+                              ],
+                              "id": 6283470,
+                              "isVisible": true,
+                              "attributes": "{\n\n}",
+                              "image": "",
+                              "name": "",
+                              "classNameExpressions": [],
+                              "style": "",
+                              "children": []
+                            }
+                          ],
+                          "id": 3994074,
+                          "isVisible": true,
+                          "attributes": "{\n\n}",
+                          "image": "",
+                          "name": "",
+                          "classNameExpressions": [],
+                          "style": ""
+                        }
+                      ],
+                      "attributes": "{\n\thref: 'https://twitter.com',\n\ttarget: '_blank',\n  rel: 'noopener noreferrer'\n}",
+                      "id": 8489828,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNames": [],
+                      "classNameExpressions": [],
+                      "style": ""
+                    },
+                    {
+                      "type": "element",
+                      "tagName": "a",
+                      "children": [
+                        {
+                          "type": "element",
+                          "tagName": "span",
+                          "classNames": [
+                            "icon"
+                          ],
+                          "children": [
+                            {
+                              "type": "element",
+                              "tagName": "i",
+                              "classNames": [
+                                "fab",
+                                "fa-facebook-f"
+                              ],
+                              "id": 8936496,
+                              "isVisible": true,
+                              "attributes": "{\n\n}",
+                              "image": "",
+                              "name": "",
+                              "classNameExpressions": [],
+                              "style": "",
+                              "children": []
+                            }
+                          ],
+                          "id": 3232684,
+                          "isVisible": true,
+                          "attributes": "{\n\n}",
+                          "image": "",
+                          "name": "",
+                          "classNameExpressions": [],
+                          "style": ""
+                        }
+                      ],
+                      "attributes": "{\n\thref: 'https://facebook.com',\n\ttarget: '_blank',\n  rel: 'noopener noreferrer'\n}",
+                      "id": 7606899,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNames": [],
+                      "classNameExpressions": [],
+                      "style": ""
+                    },
+                    {
+                      "type": "element",
+                      "tagName": "a",
+                      "children": [
+                        {
+                          "type": "element",
+                          "tagName": "span",
+                          "classNames": [
+                            "icon"
+                          ],
+                          "children": [
+                            {
+                              "type": "element",
+                              "tagName": "i",
+                              "classNames": [
+                                "fab",
+                                "fa-instagram"
+                              ],
+                              "id": 8331840,
+                              "isVisible": true,
+                              "attributes": "{\n\n}",
+                              "image": "",
+                              "name": "",
+                              "classNameExpressions": [],
+                              "style": "",
+                              "children": []
+                            }
+                          ],
+                          "id": 2925991,
+                          "isVisible": true,
+                          "attributes": "{\n\n}",
+                          "image": "",
+                          "name": "",
+                          "classNameExpressions": [],
+                          "style": ""
+                        }
+                      ],
+                      "attributes": "{\n\thref: 'https://instagram.com',\n\ttarget: '_blank',\n  rel: 'noopener noreferrer'\n}",
+                      "id": 2600085,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNames": [],
+                      "classNameExpressions": [],
+                      "style": ""
+                    }
+                  ],
+                  "id": 617938,
+                  "isVisible": true,
+                  "attributes": "{\n\n}",
+                  "image": "",
+                  "name": "",
+                  "classNameExpressions": [],
+                  "style": ""
+                },
+                {
+                  "type": "element",
+                  "tagName": "div",
+                  "classNames": [
+                    "copyright",
+                    "left"
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "{props.copyright}",
+                      "id": 9660171,
+                      "isVisible": true,
+                      "children": []
+                    }
+                  ],
+                  "id": 531660,
+                  "isVisible": true,
+                  "attributes": "{\n\n}",
+                  "image": "",
+                  "name": "",
+                  "classNameExpressions": [],
+                  "style": ""
+                }
+              ],
+              "style": "display: flex;\nflex-wrap: wrap;\n> div {\n  display: flex;\n  flex: none;\n  justify-content: center;\n  width: 100%;\n  margin-bottom: 24px;\n}\n\n.brand {\n  img {\n    display: block;\n    height: 32px;\n  }\n}\n\n.social {\n  align-items: flex-end;\n}\n\n.social, .links {\n  a {\n    color: inherit;\n    &:hover {\n      opacity: 0.8;\n    }\n\n    &:not(:first-of-type) {\n      margin-left: 20px;\n    }\n  }\n}\n\n// Tablet and up\n@media screen and (min-width: 769px) {\n  > div {\n    flex: 50%;\n  }\n\n  .left {\n    justify-content: flex-start;\n  }\n\n  .right {\n    justify-content: flex-end;\n  }\n  \n  // Move links to end (bottom right)\n  // Swaps position with social\n  .links {\n    order: 1;\n  }\n}",
+              "id": 4190157,
+              "isVisible": true,
+              "attributes": "{\n\n}",
+              "image": "",
+              "name": "",
+              "classNameExpressions": []
+            }
+          ],
+          "id": 4337160,
+          "isVisible": true
+        }
+      ],
+      "tags": [
+        "Footer",
+        "Popular"
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "code": "",
+      "nameFormatted": "Footer",
+      "modulePath": "components/Footer"
+    },
+    {
+      "type": "component",
+      "name": "Background Image",
+      "id": 1986700,
+      "children": [
+        {
+          "type": "element",
+          "tagName": "div",
+          "attributes": "{\n  style: {\n    '--image': `url(${props.image})`,\n    '--opacity': props.opacity\n  }\n}",
+          "style": "content: \"\";\nbackground-image: var(--image);\nbackground-position: center center;\nbackground-size: cover;\nopacity: var(--opacity);\ntop: 0;\nleft: 0;\nbottom: 0;\nright: 0;\nposition: absolute;\nz-index: 0;",
+          "id": 4730303,
+          "isVisible": true,
+          "image": "",
+          "name": "",
+          "classNames": [],
+          "classNameExpressions": [],
+          "children": []
+        }
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "tags": [],
+      "code": "",
+      "nameFormatted": "BackgroundImage",
+      "modulePath": "components/BackgroundImage"
+    },
+    {
+      "type": "component",
+      "name": "Section Header",
+      "id": 5415335,
+      "children": [
+        {
+          "type": "if",
+          "js": "props.title || props.subtitle",
+          "id": 8933982,
+          "children": [
+            {
+              "type": "element",
+              "tagName": "header",
+              "children": [
+                {
+                  "type": "if",
+                  "js": "props.title",
+                  "id": 3832557,
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "h1",
+                      "classNames": [
+                        "title",
+                        "is-spaced",
+                        "has-text-weight-bold"
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "{props.title}",
+                          "id": 3346646,
+                          "isVisible": true,
+                          "children": []
+                        }
+                      ],
+                      "classNameExpressions": [
+                        {
+                          "js": "props.size",
+                          "classNames": [
+                            "is-{props.size}"
+                          ]
+                        },
+                        {
+                          "js": "props.size === 1",
+                          "classNames": [
+                            "is-size-2-mobile"
+                          ]
+                        }
+                      ],
+                      "id": 5428871,
+                      "isVisible": true,
+                      "attributes": "{\n\n}",
+                      "image": "",
+                      "name": "",
+                      "style": ""
+                    }
+                  ],
+                  "isVisible": true
+                },
+                {
+                  "type": "if",
+                  "js": "props.subtitle",
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "p",
+                      "classNames": [
+                        "subtitle"
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "text": "{props.subtitle}",
+                          "id": 4050505,
+                          "isVisible": true,
+                          "children": []
+                        }
+                      ],
+                      "id": 2045497,
+                      "classNameExpressions": [
+                        {
+                          "js": "props.size > 4",
+                          "classNames": [
+                            "is-6"
+                          ]
+                        }
+                      ],
+                      "isVisible": true,
+                      "attributes": "{\n\n}",
+                      "image": "",
+                      "name": "",
+                      "style": ""
+                    }
+                  ],
+                  "id": 4428299,
+                  "isVisible": true
+                }
+              ],
+              "classNameExpressions": [
+                {
+                  "js": "props.centered",
+                  "classNames": [
+                    "is-centered"
+                  ]
+                }
+              ],
+              "style": "margin-bottom: 3rem;\n\n// Remove margin if nothing after header\n&:last-child{\n  margin-bottom: 0;\n}\n\n// Added if props.centered is true\n&.is-centered {\n  text-align: center;\n}\n\n.subtitle {\n\tmax-width: 700px;\n  // So we can have max-width but still\n  // have alignment controlled by text-align.\n  display: inline-block;\n}",
+              "id": 4841502,
+              "name": "Header",
+              "isVisible": true,
+              "attributes": "{\n\n}",
+              "image": "",
+              "classNames": []
+            }
+          ],
+          "isVisible": true
+        }
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "tags": [],
+      "code": "",
+      "nameFormatted": "SectionHeader",
+      "modulePath": "components/SectionHeader"
+    },
+    {
+      "type": "component",
+      "name": "Auth",
+      "code": "\t// State for all inputs\n  const [email, setEmail] = useState('');\n  const [pass, setPass] = useState('');\n  const [confirmPass, setConfirmPass] = useState('');\n  \n  // Whether to show errors\n  // We set to true if they submit and there are errors.\n  // We only show errors after they submit because\n  // it's annoying to see errors while typing.\n  const [showErrors, setShowErrors] = useState(false);\n  \n  // Error array we'll populate\n  let errors = [];\n\n  // Function for fetching error for a field\n  const getError = (field) => {\n    return errors.find((e) => e.field === field);\n  }\n  \n  // Function to see if field is empty\n  const isEmpty = (val) => val.trim() === '';\n  \n  // Add error if email empty\n  if (['signin','signup','forgotpass'].includes(props.mode)){\n    if (isEmpty(email)){\n      errors.push({\n        field: 'email',\n        message: 'Please enter an email'\n      });\n    }\n  }\n    \n  // Add error if password empty\n  if (['signin', 'signup', 'changepass'].includes(props.mode)){\n    if (isEmpty(pass)){\n      errors.push({\n        field: 'pass',\n        message: 'Please enter a password'\n      });\n    }\n  }\n    \n  // Add error if confirmPass empty or\n\t// if it doesn't match pass.\n\t// Only for signup and changepass views.\n  if (['signup', 'changepass'].includes(props.mode)){\n    if (isEmpty(confirmPass)){\n      errors.push({\n        field: 'confirmPass',\n        message: 'Please confirm password'\n      });\n    }else if (pass !== confirmPass){\n      errors.push({\n        field: 'confirmPass',\n        message: `This doesn't match your password`\n      });\n    }\n  }\n\n  // Handle form submission\n  const handleSubmit = () => {\n    // If field errors then show them\n    if (errors.length){\n      setShowErrors(true);\n    }else{\n      // Otherwise call onSubmit with email/pass\n      if (props.onSubmit){\n        props.onSubmit({\n          email,\n          pass\n        });\n      }\n    }\n  }\n  ",
+      "id": 63699,
+      "children": [
+        {
+          "type": "element",
+          "tagName": "div",
+          "children": [
+            {
+              "type": "if",
+              "js": "props.status && props.status.message",
+              "children": [
+                {
+                  "type": "instance",
+                  "componentId": 8324765,
+                  "attributes": "{\n\ttype: props.status.type,\n  message: props.status.message\n}",
+                  "id": 5710328,
+                  "isVisible": true,
+                  "children": []
+                }
+              ],
+              "id": 5805610,
+              "isVisible": true
+            },
+            {
+              "type": "element",
+              "tagName": "form",
+              "children": [
+                {
+                  "type": "if",
+                  "js": "['signup', 'signin', 'forgotpass'].includes(props.mode)",
+                  "children": [
+                    {
+                      "type": "instance",
+                      "componentId": 2768808,
+                      "attributes": "{\n  value: email,\n  type: 'email',\n  placeholder: 'Email',\n\terror: showErrors && getError('email'),\n  onChange: (value) => setEmail(value)\n}",
+                      "id": 7961212,
+                      "isVisible": true,
+                      "children": []
+                    }
+                  ],
+                  "id": 9069362,
+                  "isVisible": true
+                },
+                {
+                  "type": "if",
+                  "js": "['signup', 'signin', 'changepass'].includes(props.mode)",
+                  "children": [
+                    {
+                      "type": "instance",
+                      "componentId": 2768808,
+                      "attributes": "{\n  value: pass,\n  type: 'password',\n  placeholder: 'Password',\n\terror: showErrors && getError('pass'),\n  onChange: (value) => setPass(value)\n}",
+                      "id": 5398172,
+                      "isVisible": true,
+                      "children": []
+                    }
+                  ],
+                  "id": 6566228,
+                  "isVisible": true
+                },
+                {
+                  "type": "if",
+                  "js": "['signup', 'changepass'].includes(props.mode)",
+                  "children": [
+                    {
+                      "type": "instance",
+                      "componentId": 2768808,
+                      "attributes": "{\n  value: confirmPass,\n  type: 'password',\n  placeholder: 'Confirm Password',\n\terror: showErrors && getError('confirmPass'),\n  onChange: (value) => setConfirmPass(value)\n}",
+                      "id": 361947,
+                      "isVisible": true,
+                      "children": []
+                    }
+                  ],
+                  "id": 7858956,
+                  "isVisible": true
+                },
+                {
+                  "type": "element",
+                  "tagName": "div",
+                  "classNames": [
+                    "field"
+                  ],
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "p",
+                      "classNames": [
+                        "control",
+                        ""
+                      ],
+                      "children": [
+                        {
+                          "type": "instance",
+                          "componentId": 8669042,
+                          "attributes": "{\n\tparentColor: props.parentColor,\n  size: \"medium\",\n  fullWidth: true,\n  state: props.status && \n    \t\t\tprops.status.type === \"pending\" ?\n\t\t\t\t\t\t'loading' : 'normal'\n}",
+                          "children": [
+                            {
+                              "type": "text",
+                              "text": "{props.buttonText}",
+                              "id": 7223197,
+                              "isVisible": true,
+                              "children": []
+                            }
+                          ],
+                          "id": 9599909,
+                          "isVisible": true
+                        }
+                      ],
+                      "id": 1976494,
+                      "isVisible": true,
+                      "attributes": "{\n\n}",
+                      "image": "",
+                      "name": "",
+                      "classNameExpressions": [],
+                      "style": ""
+                    }
+                  ],
+                  "name": "Submit",
+                  "id": 2933438,
+                  "isVisible": true,
+                  "attributes": "{\n\n}",
+                  "image": "",
+                  "classNameExpressions": [],
+                  "style": ""
+                },
+                {
+                  "type": "if",
+                  "js": "['signup', 'signin'].includes(props.mode)",
+                  "id": 4019975,
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "div",
+                      "classNames": [
+                        "has-text-centered"
+                      ],
+                      "children": [
+                        {
+                          "type": "if",
+                          "js": "props.mode === \"signup\"",
+                          "children": [
+                            {
+                              "type": "text",
+                              "text": "Have an account already?",
+                              "id": 405129,
+                              "isVisible": true,
+                              "children": []
+                            },
+                            {
+                              "type": "element",
+                              "tagName": "a",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "text": "Sign in",
+                                  "id": 5532821,
+                                  "isVisible": true,
+                                  "children": []
+                                }
+                              ],
+                              "attributes": "{\n  href: '/signin'\n}",
+                              "id": 3021224,
+                              "isVisible": true,
+                              "image": "",
+                              "name": "",
+                              "classNames": [],
+                              "classNameExpressions": [],
+                              "style": ""
+                            }
+                          ],
+                          "id": 1718561,
+                          "isVisible": true
+                        },
+                        {
+                          "type": "if",
+                          "js": "props.mode === 'signin'",
+                          "children": [
+                            {
+                              "type": "element",
+                              "tagName": "a",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "text": "Create an account",
+                                  "id": 119509,
+                                  "isVisible": true,
+                                  "children": []
+                                }
+                              ],
+                              "attributes": "{\n  href: '/signup'\n}",
+                              "id": 3288573,
+                              "isVisible": true,
+                              "image": "",
+                              "name": "",
+                              "classNames": [],
+                              "classNameExpressions": [],
+                              "style": ""
+                            },
+                            {
+                              "type": "element",
+                              "tagName": "a",
+                              "attributes": "{\n  href: '/forgotpass'\n}",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "text": "Forgot password",
+                                  "id": 5157568,
+                                  "isVisible": true,
+                                  "children": []
+                                }
+                              ],
+                              "id": 6632095,
+                              "isVisible": true,
+                              "image": "",
+                              "name": "",
+                              "classNames": [],
+                              "classNameExpressions": [],
+                              "style": ""
+                            }
+                          ],
+                          "id": 4822433,
+                          "isVisible": true
+                        }
+                      ],
+                      "name": "Bottom Link",
+                      "style": "margin-top: 1rem;\nfont-size: 0.9rem;\na {\n  margin: 0 0.5rem;\n}",
+                      "id": 1854125,
+                      "isVisible": true,
+                      "attributes": "{\n\n}",
+                      "image": "",
+                      "classNameExpressions": []
+                    }
+                  ],
+                  "isVisible": true
+                }
+              ],
+              "attributes": "{\n  onSubmit: (e) => {\n    e.preventDefault();\n    handleSubmit();\n  }\n}",
+              "id": 6086474,
+              "isVisible": true,
+              "image": "",
+              "name": "",
+              "classNames": [],
+              "classNameExpressions": [],
+              "style": ""
+            }
+          ],
+          "style": "width: 100%;\nmax-width: 450px;\nmargin: 0 auto;",
+          "id": 5859175,
+          "isVisible": true,
+          "attributes": "{\n\n}",
+          "image": "",
+          "name": "",
+          "classNames": [],
+          "classNameExpressions": []
+        }
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "tags": [],
+      "nameFormatted": "Auth",
+      "modulePath": "components/Auth"
+    },
+    {
+      "type": "component",
+      "name": "Form Field",
+      "id": 2768808,
+      "children": [
+        {
+          "type": "element",
+          "tagName": "div",
+          "classNames": [
+            "field"
+          ],
+          "children": [
+            {
+              "type": "element",
+              "tagName": "div",
+              "classNames": [
+                "control"
+              ],
+              "children": [
+                {
+                  "type": "if",
+                  "js": "props.type === \"textarea\"",
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "textarea",
+                      "attributes": "{\n  type: props.type,\n  value: props.value,\n  placeholder: props.placeholder,\n  onChange: (e) => props.onChange(e.target.value)\n}",
+                      "classNames": [
+                        "textarea",
+                        "is-medium"
+                      ],
+                      "id": 398205,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNameExpressions": [],
+                      "style": "",
+                      "children": []
+                    }
+                  ],
+                  "id": 6549474,
+                  "isVisible": true
+                },
+                {
+                  "type": "if",
+                  "js": "props.type !== \"textarea\"",
+                  "children": [
+                    {
+                      "type": "element",
+                      "tagName": "input",
+                      "attributes": "{\n  type: props.type,\n  value: props.value,\n  placeholder: props.placeholder,\n  onChange: (e) => props.onChange(e.target.value)\n}",
+                      "classNames": [
+                        "input",
+                        "is-medium"
+                      ],
+                      "id": 889978,
+                      "isVisible": true,
+                      "image": "",
+                      "name": "",
+                      "classNameExpressions": [],
+                      "style": "",
+                      "children": []
+                    }
+                  ],
+                  "id": 6476692,
+                  "isVisible": true
+                }
+              ],
+              "id": 5235996,
+              "isVisible": true,
+              "attributes": "{\n\n}",
+              "image": "",
+              "name": "",
+              "classNameExpressions": [],
+              "style": ""
+            },
+            {
+              "type": "if",
+              "js": "props.error",
+              "children": [
+                {
+                  "type": "element",
+                  "tagName": "p",
+                  "classNames": [
+                    "help",
+                    "is-danger"
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "text": "{props.error.message}",
+                      "id": 5299485,
+                      "isVisible": true,
+                      "children": []
+                    }
+                  ],
+                  "id": 9601294,
+                  "isVisible": true,
+                  "attributes": "{\n\n}",
+                  "image": "",
+                  "name": "",
+                  "classNameExpressions": [],
+                  "style": ""
+                }
+              ],
+              "id": 1823889,
+              "isVisible": true
+            }
+          ],
+          "id": 1060601,
+          "isVisible": true,
+          "attributes": "{\n\n}",
+          "image": "",
+          "name": "",
+          "classNameExpressions": [],
+          "style": ""
+        }
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "tags": [],
+      "code": "",
+      "nameFormatted": "FormField",
+      "modulePath": "components/FormField"
+    },
+    {
+      "type": "component",
+      "name": "Sign In Section",
+      "id": 2902377,
+      "children": [
+        {
+          "type": "instance",
+          "componentId": 1079246,
+          "attributes": "{\n\tcolor: props.color,\n  size: props.size\n}",
+          "children": [
+            {
+              "type": "element",
+              "tagName": "div",
+              "classNames": [
+                "container"
+              ],
+              "children": [
+                {
+                  "type": "instance",
+                  "componentId": 5415335,
+                  "attributes": "{\n\ttitle: props.title,\n  subtitle: props.subtitle,\n  centered: true,\n  // value from 1-6\n  size: 3\n}",
+                  "id": 5988133,
+                  "isVisible": true,
+                  "children": []
+                },
+                {
+                  "type": "instance",
+                  "componentId": 6850885,
+                  "attributes": "{\n  buttonText: props.buttonText,\n  parentColor: props.color,\n  onSignin: onSignin\n}",
+                  "id": 2737557,
+                  "isVisible": true,
+                  "children": []
+                }
+              ],
+              "id": 9088759,
+              "isVisible": true,
+              "attributes": "{\n\n}",
+              "image": "",
+              "name": "",
+              "classNameExpressions": [],
+              "style": ""
+            }
+          ],
+          "id": 3089850,
+          "isVisible": true
+        }
+      ],
+      "code": "\t// Go to page after signin\n  const onSignin = () => {\n    router.push('/dashboard');\n  }\n  ",
+      "tags": [
+        "Signup"
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "nameFormatted": "SignInSection",
+      "modulePath": "components/SignInSection"
+    },
+    {
+      "type": "component",
+      "name": "Sign In",
+      "code": "\tconst auth = useAuth();\n\tconst [status, setStatus] = useState();\n  \n  const onSubmit = ({ email, pass }) => {\n    setStatus({ type: \"pending\" });\n  \tauth.signin(email, pass)\n    \t.then(user => {\n      \tprops.onSignin && props.onSignin();\n    \t})\n      .catch(error => {\n      \tsetStatus({\n        \ttype: \"error\",\n          message: error.message\n      \t});\n  \t\t});\n  }\n  ",
+      "id": 6850885,
+      "children": [
+        {
+          "type": "instance",
+          "componentId": 63699,
+          "attributes": "{\n  mode: 'signin',\n  buttonText: props.buttonText,\n  parentColor: props.parentColor,\n  onSubmit: onSubmit,\n  status: status\n}",
+          "id": 9415858,
+          "isVisible": true,
+          "children": []
+        }
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "tags": [],
+      "nameFormatted": "SignIn",
+      "modulePath": "components/SignIn"
+    },
+    {
+      "type": "component",
+      "name": "Form Status",
+      "id": 8324765,
+      "children": [
+        {
+          "type": "element",
+          "tagName": "div",
+          "classNames": [
+            "notification"
+          ],
+          "classNameExpressions": [
+            {
+              "js": "props.type === \"error\"",
+              "classNames": [
+                "is-danger"
+              ]
+            },
+            {
+              "js": "props.type === \"success\"",
+              "classNames": [
+                "is-success"
+              ]
+            }
+          ],
+          "children": [
+            {
+              "type": "text",
+              "text": "{props.message}",
+              "id": 6208534,
+              "isVisible": true,
+              "children": []
+            }
+          ],
+          "id": 2491376,
+          "isVisible": true,
+          "attributes": "{\n\n}",
+          "image": "",
+          "name": "",
+          "style": ""
+        }
+      ],
+      "isVisible": true,
+      "nameLibrary": "",
+      "description": "",
+      "tags": [],
+      "code": "",
+      "nameFormatted": "FormStatus",
+      "modulePath": "components/FormStatus"
+    },
+    {
+      "type": "component",
+      "subtype": "page-component",
+      "path": "",
+      "children": [
+        {
+          "type": "instance",
+          "componentId": 4913234,
+          "attributes": "{\n  // primary, link, info, success, warning, \n  // danger, white, light, dark, black\n  color: \"white\",\n  // add extra padding\n  spaced: true,\n  // logo image url\n  logo: 'https://uploads.divjoy.com/logo.svg'\n}",
+          "id": 7164625,
+          "isVisible": true,
+          "children": [],
+          "libraryName": "Navbar"
+        },
+        {
+          "type": "instance",
+          "componentId": 2902377,
+          "attributes": "{\n  // primary, link, info, success, warning, \n  // danger, white, light, dark, black\n\tcolor: \"white\",\n  // normal, medium, large\n  size: \"medium\",\n\ttitle: \"Welcome back\",\n  subtitle: \"\",\n  buttonText: \"Sign in\",\n}",
+          "id": 9426123,
+          "isVisible": true,
+          "children": [],
+          "libraryName": "Sign In Section"
+        },
+        {
+          "type": "instance",
+          "componentId": 203216,
+          "attributes": "{\n  // primary, link, info, success, warning, \n  // danger, white, light, dark, black\n\tcolor: \"white\",\n  // normal, medium, large\n  size: \"normal\",\n  // logo image url\n  logo: 'https://uploads.divjoy.com/logo.svg',\n  copyright: '© 2019 Company'\n}",
+          "id": 3623968,
+          "isVisible": true,
+          "children": [],
+          "libraryName": "Footer"
+        }
+      ],
+      "id": 8488729,
+      "isVisible": true,
+      "code": "",
+      "nameFormatted": "HomePage",
+      "modulePath": "pages/home"
+    },
+    {
+      "id": "app",
+      "type": "component",
+      "subtype": "app-component",
+      "globalStyle": "// COLORS\n$primary: #00d1b2;\n$info: #209CEE;\n$success: #23D160;\n$warning: #FFDD57;\n$danger: #FF3860;\n$light: #F5F5F5;\n$dark: #363636;\n\n// TEXT\n$text: #4A4A4A;\n$link: #3273DC;\n$body-family: BlinkMacSystemFont, -apple-system, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", \"Helvetica\", \"Arial\", sans-serif;\n$title-family: false;\n$button-family: false;\n\n// BREAKPOINTS\n$gap: 32px;\n$tablet: 769px;\n$desktop: 960px + (2*$gap);\n$widescreen: 1152px + (2*$gap);\n$fullhd: 1344px + (2*$gap);\n$widescreen-enabled: true;\n$fullhd-enabled: false;\n\n// LAYOUT\n$section-padding: 3rem 1.5rem;\n$section-padding-medium: 6rem 1.5rem;\n$section-padding-large: 9rem 1.5rem;\n\n// SEE DOCS FOR MORE: \n// https://bit.ly/30UvE5O\n\n// IMPORT BULMA\n@import \"~bulma/bulma.sass\";",
+      "isVisible": true,
+      "code": "",
+      "children": [
+        {
+          "type": "pages",
+          "id": 3883232,
+          "isVisible": true,
+          "children": [
+            {
+              "type": "instance",
+              "subtype": "page-instance",
+              "componentId": 8488729,
+              "ONLY_FOR_RENDER": true,
+              "id": 8063293,
+              "isVisible": true,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "nameFormatted": "App",
+      "modulePath": "pages/_app"
+    }
+  ]
+}
