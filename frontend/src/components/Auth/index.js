@@ -139,24 +139,6 @@ function Auth(props) {
             </SectionButton>
           </p>
         </div>
-
-        {['signup', 'signin'].includes(props.mode) && (
-          <div className="Auth__bottom-link has-text-centered">
-            {props.mode === 'signup' && (
-              <Fragment>
-                Have an account already?
-                <Link to="/signin">Sign in</Link>
-              </Fragment>
-            )}
-
-            {props.mode === 'signin' && (
-              <Fragment>
-                <Link to="/signup">Create an account</Link>
-                <Link to="/forgotpass">Forgot password</Link>
-              </Fragment>
-            )}
-          </div>
-        )}
       </form>
     </div>
   );
