@@ -1,15 +1,8 @@
-import React, { useState, useEffect, useContext, createContext } from "react";
-import queryString from "query-string";
-import * as firebase from "firebase/app";
-import "firebase/auth";
-
-// Replace with your own Firebase credentials
-firebase.initializeApp({
-  apiKey: "AIzaSyBkkFF0XhNZeWuDmOfEhsgdfX1VBG7WTas",
-  authDomain: "divjoy-demo.firebaseapp.com",
-  projectId: "divjoy-demo",
-  appID: "divjoy-demo"
-});
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import queryString from 'query-string';
+import storage, { storageTokenKey, storageUserKey } from './storage';
+import { useRouter } from './router';
+import { getAuthUrl, handleAuth, account } from './harvestBalance';
 
 const authContext = createContext();
 
@@ -28,82 +21,50 @@ export const useAuth = () => {
 
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
-  const [user, setUser] = useState(null);
+  // Try to validate the auth code if we got one
+  const {
+    query: { code, scope },
+    push,
+  } = useRouter();
+  const [isAuthenticating, setIsAuthenticating] = useState(!!code);
+  const [user, setUser] = useState(() => storage.get(storageUserKey));
+  const [token, setToken] = useState(() => storage.get(storageTokenKey));
 
-  const signin = (email, password) => {
-    return firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(response => {
-        setUser(response.user);
-        return response.user;
-      });
-  };
-
-  const signup = (email, password) => {
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(response => {
-        setUser(response.user);
-        return response.user;
-      });
+  const signin = () => {
+    return getAuthUrl().then(res => (window.location = res.url));
   };
 
   const signout = () => {
-    return firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        setUser(false);
-      });
+    setToken(null);
+    setUser(null);
+    storage.set(storageTokenKey, null);
+    storage.set(storageUserKey, null);
   };
 
-  const sendPasswordResetEmail = email => {
-    return firebase
-      .auth()
-      .sendPasswordResetEmail(email)
-      .then(() => {
-        return true;
-      });
-  };
-
-  const confirmPasswordReset = (password, code) => {
-    // Get code from query string object
-    const resetCode = code || getFromQueryString("oobCode");
-
-    return firebase
-      .auth()
-      .confirmPasswordReset(resetCode, password)
-      .then(() => {
-        return true;
-      });
-  };
-
-  // Subscribe to user on mount
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(false);
-      }
-    });
-
-    // Subscription unsubscribe function
-    return () => unsubscribe();
+    if (code) {
+      handleAuth(code, scope)
+        .then(({ harvest_token, expires_in }) => {
+          setToken(harvest_token);
+          storage.set(storageTokenKey, harvest_token);
+          return account();
+        })
+        .then(accountRes => {
+          setUser(accountRes);
+          storage.set(storageUserKey, accountRes);
+        })
+        .then(() => {
+          push('/');
+          setIsAuthenticating(false);
+        });
+    }
   }, []);
 
   return {
+    isAuthenticating,
     user,
+    token,
     signin,
-    signup,
     signout,
-    sendPasswordResetEmail,
-    confirmPasswordReset
   };
 }
-
-const getFromQueryString = key => {
-  return queryString.parse(window.location.search)[key];
-};

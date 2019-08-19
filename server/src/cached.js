@@ -1,8 +1,7 @@
-import Promise from "bluebird"
-import cache from "memory-cache"
-import hash from "object-hash"
+import cache from 'memory-cache';
+import hash from 'object-hash';
 
-const CACHE_TIMEOUT_MS = 60 * 60 * 1000 // 1 hour in ms
+const CACHE_TIMEOUT_MS = 60 * 60 * 1000; // 1 hour in ms
 
 /**
  * Wrapper for making a cached async function. The function returns a function
@@ -29,19 +28,19 @@ const CACHE_TIMEOUT_MS = 60 * 60 * 1000 // 1 hour in ms
  *
  */
 const cached = (fn, key, timeout = CACHE_TIMEOUT_MS) => (...args) => {
-  const compositeKey = `${key}_${hash(args)}`
+  const compositeKey = `${key}_${hash(args)}`;
 
-  const cachedValue = cache.get(compositeKey)
+  const cachedValue = cache.get(compositeKey);
   if (cachedValue) {
     // console.log(`Hitting cache for ${compositeKey}`)
-    return Promise.resolve(cachedValue)
+    return Promise.resolve(cachedValue);
   }
 
-  return fn(...args).then((value) => {
+  return fn(...args).then(value => {
     // console.log(`Caching value for ${compositeKey}`)
-    cache.put(compositeKey, value, timeout)
-    return value
-  })
-}
+    cache.put(compositeKey, value, timeout);
+    return value;
+  });
+};
 
-export default cached
+export default cached;

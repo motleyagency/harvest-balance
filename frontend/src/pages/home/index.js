@@ -1,30 +1,25 @@
 import React, { Fragment } from 'react';
+import { useAuth } from '../../util/auth';
 import Navbar from './../../components/Navbar';
 import SignInSection from './../../components/SignInSection';
-import Footer from './../../components/Footer';
 import './styles.scss';
 
-function HomePage(props) {
+function HomePage() {
+  const { user } = useAuth();
+
   return (
     <Fragment>
-      <Navbar
-        color="white"
-        spaced={true}
-        logo="https://uploads.divjoy.com/logo.svg"
-      />
-      <SignInSection
-        color="white"
-        size="medium"
-        title="Welcome back"
-        subtitle=""
-        buttonText="Sign in"
-      />
-      <Footer
-        color="white"
-        size="normal"
-        logo="https://uploads.divjoy.com/logo.svg"
-        copyright="© 2019 Company"
-      />
+      <Navbar color="white" spaced={true} />
+      {!user ? (
+        <SignInSection
+          color="white"
+          size="medium"
+          title="Welcome"
+          buttonText="Sign in"
+        />
+      ) : (
+        <p>Signed in</p>
+      )}
     </Fragment>
   );
 }

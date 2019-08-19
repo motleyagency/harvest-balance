@@ -1,14 +1,14 @@
-import React from "react";
-import HomePage from "./../home";
-import { Switch, Route, Router } from "./../../util/router.js";
-import analytics from "./../../util/analytics.js";
-import { ProvideAuth } from "./../../util/auth.js";
-import "./styles.scss";
+import React from 'react';
+import HomePage from './../home';
+import { Switch, Route, Router } from './../../util/router.js';
+// import analytics from './../../util/analytics.js';
+import { ProvideAuth } from './../../util/auth.js';
+import './styles.scss';
 
 function App(props) {
   return (
-    <ProvideAuth>
-      <Router>
+    <Router>
+      <ProvideAuth>
         <Switch>
           <Route exact path="/" component={HomePage} />
 
@@ -17,9 +17,9 @@ function App(props) {
               return (
                 <div
                   style={{
-                    padding: "50px",
-                    width: "100%",
-                    textAlign: "center"
+                    padding: '50px',
+                    width: '100%',
+                    textAlign: 'center',
                   }}
                 >
                   The page <code>{location.pathname}</code> could not be found.
@@ -28,8 +28,8 @@ function App(props) {
             }}
           />
         </Switch>
-      </Router>
-    </ProvideAuth>
+      </ProvideAuth>
+    </Router>
   );
 }
 

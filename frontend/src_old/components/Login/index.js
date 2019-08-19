@@ -1,34 +1,34 @@
-import React from "react"
-import PropTypes from "prop-types"
-import { Button } from "reactstrap"
-import styled from "styled-components"
-import harvestIcon from "../../assets/harvest-h.svg"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'reactstrap';
+import styled from 'styled-components';
+import harvestIcon from '../../assets/harvest-h.svg';
 
 const LoginButton = styled(Button)`
   font-weight: 700;
-`
+`;
 
 const H1 = styled.h1`
   margin-bottom: 6rem;
-  color: #F66621;
-`
+  color: #f66621;
+`;
 
 const HarvestLogo = styled.img`
   margin-right: 1rem;
   vertical-align: top;
-`
+`;
 
 const Row = styled.div`
   height: 100vh;
-`
+`;
 
 const Error = styled.p`
   margin-top: 3rem;
-`
+`;
 
 const Login = ({ getAuthUrl, auth: { status, authUrl, errorDescription } }) => {
   if (authUrl) {
-    window.location = authUrl
+    window.location = authUrl;
   }
 
   return (
@@ -40,18 +40,14 @@ const Login = ({ getAuthUrl, auth: { status, authUrl, errorDescription } }) => {
             <HarvestLogo src={harvestIcon} alt="Login with Harvest" />
             Login with Harvest
           </LoginButton>
-          {
-            status === "error" && (
-              <Error className="text-danger">
-                {errorDescription}
-              </Error>
-            )
-          }
+          {status === 'error' && (
+            <Error className="text-danger">{errorDescription}</Error>
+          )}
         </div>
       </Row>
     </div>
-  )
-}
+  );
+};
 
 Login.propTypes = {
   getAuthUrl: PropTypes.func.isRequired,
@@ -60,7 +56,7 @@ Login.propTypes = {
     status: PropTypes.string,
     errorDescription: PropTypes.string,
   }).isRequired,
-}
+};
 
 Login.defaultProps = {
   auth: {
@@ -68,6 +64,6 @@ Login.defaultProps = {
     status: null,
     errorDescription: null,
   },
-}
+};
 
-export default Login
+export default Login;

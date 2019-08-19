@@ -1,0 +1,54 @@
+{
+  "name": "harvest-balance-server",
+  "version": "0.3.0",
+  "description": "Calculate hour balance using Harvest API",
+  "main": "src/index.js",
+  "author": "Fredrik Boström <fredrik@fredrikbostrom.net>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -fr dist",
+    "build": "npm run clean && babel src -d dist",
+    "start": "nodemon -w src --exec babel-node src/index.js",
+    "serve": "node dist/index.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-motley": "^11.1.1",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "0.0.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.2.1",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "dotenv-extended": "^2.4.0",
+    "express": "^4.17.1",
+    "lodash.keyby": "^4.6.0",
+    "memory-cache": "^0.2.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "object-hash": "^1.3.1",
+    "twix": "^1.3.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,graphql,md,css,scss,less,ts}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

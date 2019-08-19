@@ -1,20 +1,20 @@
 @charset "utf-8";
 
 // COLORS
-$primary: #00d1b2;
-$info: #209CEE;
-$success: #23D160;
-$warning: #FFDD57;
-$danger: #FF3860;
-$light: #F5F5F5;
+$primary: #f66621;
+$info: #209cee;
+$success: #23d160;
+$warning: #ffdd57;
+$danger: #ff3860;
+$light: #f5f5f5;
 $dark: #363636;
 
 // TEXT
-$text: #4A4A4A;
-$link: #3273DC;
-$body-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen",
-  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-  "Helvetica", "Arial", sans-serif;
+$text: #4a4a4a;
+$link: #3273dc;
+$body-family: BlinkMacSystemFont, -apple-system, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  'Helvetica', 'Arial', sans-serif;
 $title-family: false;
 $button-family: false;
 
@@ -36,4 +36,4 @@ $section-padding-large: 9rem 1.5rem;
 // https://bit.ly/30UvE5O
 
 // IMPORT BULMA
-@import "~bulma/bulma.sass";
+@import '~bulma/bulma.sass';
