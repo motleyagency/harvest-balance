@@ -7,10 +7,14 @@ import { get as getAccount } from './account';
 require('dotenv-extended').load();
 
 const app = express();
-const ROOT_FOLDER = path.resolve(__dirname, '..', 'dist');
+// const ROOT_FOLDER = path.resolve(__dirname, '..', 'dist');
 const PORT = process.env.SERVER_PORT || 5000;
 
 const handleError = (err, res) => {
+  if (err instanceof Error) {
+    res.status(500).json({ error: err.name, error_description: err.message });
+  }
+
   if (['invalid_token', 'invalid_grant'].includes(err.error)) {
     res.status(401).json(err);
   } else {
@@ -54,10 +58,10 @@ app.get('/api/account', (req, res) => {
 });
 
 app.get('/api/balance', (req, res) => {
-  const { startDate } = req.query;
+  const { startDate, includeToday } = req.query;
   const token = req.get('harvest_token');
 
-  getReport(token, { startDate })
+  getReport(token, { startDate, includeToday: includeToday === 'true' })
     .then(report => {
       res.json(report);
     })

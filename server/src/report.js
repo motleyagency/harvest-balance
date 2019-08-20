@@ -49,12 +49,12 @@ const fetchTimeEntries = (token, { fromDate, toDate }, url) => {
 // * balance for that day (due hours - logged hours)
 // * cumulative balance from start of year
 
-export const get = (token, { startDate }) => {
-  const fromDate = moment.utc(startDate);
-  const today = moment().endOf('day');
+export const get = (token, { startDate, includeToday }) => {
+  const fromDate = moment(startDate);
   const toDate = moment()
-    .utc()
-    .endOf('isoweek'); // Sunday as last day of week
+    .subtract(includeToday ? 0 : 1, 'day')
+    .endOf('day');
+  const endOfWeek = moment(toDate).endOf('isoweek'); // Sunday as last day of week
 
   return fetchTimeEntries(token, {
     fromDate: fromDate.format('YYYYMMDD'),
@@ -77,14 +77,14 @@ export const get = (token, { startDate }) => {
       // * if no entry for given day, leave balance at start balance
 
       const report = moment(startDate)
-        .twix(toDate)
+        .twix(endOfWeek)
         .toArray('days')
         .reduce((dayReports, day) => {
           const currentDate = day.format('YYYY-MM-DD');
 
           // we're starting a new day, init the day balance (negative due hours)
           const weekday = day.day();
-          const isFuture = day > today;
+          const isFuture = day > toDate;
           const dueHours = isWeekend(weekday) || isFuture ? 0 : hoursPerDay;
 
           const dayReport = {
@@ -157,8 +157,8 @@ export const get = (token, { startDate }) => {
       const balanceDuration = moment.duration(balance, 'hours');
 
       return {
-        fromDate,
-        toDate,
+        start: fromDate,
+        end: endOfWeek,
         balance: {
           value: balance,
           hours: Math.floor(balance),
