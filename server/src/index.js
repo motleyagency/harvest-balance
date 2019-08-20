@@ -53,24 +53,26 @@ app.get('/api/account', (req, res) => {
     });
 });
 
-// app.get('/api/balance', (req, res) => {
-//   const { startDate } = req.query;
+app.get('/api/balance', (req, res) => {
+  const { startDate } = req.query;
+  const token = req.get('harvest_token');
 
-//   getReport(getClient(req), { startDate })
-//     .then(report => {
-//       res.json(report);
-//     })
-//     .catch(err => {
-//       console.error(err);
-//       handleError(err, res);
-//     });
-// });
+  getReport(token, { startDate })
+    .then(report => {
+      res.json(report);
+    })
+    .catch(err => {
+      console.error(err);
+      handleError(err, res);
+    });
+});
 
 // all other requests gets forwarded to react
-app.use('/', express.static(ROOT_FOLDER));
+// app.use('/', express.static(ROOT_FOLDER));
 
 app.use((req, res) => {
-  res.sendFile('index.html', { root: ROOT_FOLDER });
+  res.status(404).json({ error: 'Unknown request' });
+  // res.sendFile('index.html', { root: ROOT_FOLDER });
 });
 
 app.listen(PORT, () => {
