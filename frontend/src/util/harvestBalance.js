@@ -2,17 +2,15 @@ import storage, { storageTokenKey } from './storage';
 
 const BACKEND_ENDPOINT = '/api';
 
-const jsonHeaders = () => {
-  console.log(storage.get(storageTokenKey));
-  return new Headers({
-    'Content-Type': 'application/json',
-    harvest_token: storage.get(storageTokenKey),
-  });
-};
+const jsonHeaders = () => ({
+  'Content-Type': 'application/json',
+  harvest_token: storage.get(storageTokenKey),
+});
 
-const errorChecker = response => {
+const errorChecker = async response => {
   if (response.status >= 400 && response.status < 600) {
-    throw response;
+    const resJson = await response.json();
+    throw resJson;
   }
   return response;
 };
@@ -38,10 +36,13 @@ export const account = () =>
     .then(errorChecker)
     .then(res => res.json());
 
-export const balanceReport = startDate =>
-  fetch(`${BACKEND_ENDPOINT}/balance?startDate=${startDate}`, {
-    headers: jsonHeaders(),
-  })
+export const balanceReport = ({ startDate, includeToday = false }) =>
+  fetch(
+    `${BACKEND_ENDPOINT}/balance?startDate=${startDate}&includeToday=${includeToday}`,
+    {
+      headers: jsonHeaders(),
+    },
+  )
     .then(errorChecker)
     .then(res => res.json());
 

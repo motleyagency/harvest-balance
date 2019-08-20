@@ -3,6 +3,7 @@ const PREFIX = 'harvestBalance';
 
 export const storageTokenKey = 'harvest_token';
 export const storageUserKey = 'harvest_user';
+export const storageDateKey = 'harvest_start_date';
 
 /**
  * A wrapper for localstorage providing a

@@ -1,0 +1,10 @@
+.field.is-horizontal {
+  justify-content: center;
+  > .field-label,
+  .field-body {
+    flex-grow: 0;
+    white-space: nowrap;
+    width: 250px;
+    min-width: 250px;
+  }
+}

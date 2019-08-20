@@ -1,32 +1,47 @@
-import React from "react";
-import "./styles.scss";
+import React from 'react';
+import './styles.scss';
 
-function FormField(props) {
+function FormField({
+  type = 'input',
+  size,
+  narrow,
+  className = '',
+  name,
+  value,
+  placeholder,
+  onChange,
+  error,
+  ...otherProps
+}) {
   return (
-    <div className="field">
+    <div className={`field ${narrow ? 'is-narrow' : ''}`}>
       <div className="control">
-        {props.type === "textarea" && (
+        {type === 'textarea' && (
           <textarea
-            className="textarea is-medium"
-            type={props.type}
-            value={props.value}
-            placeholder={props.placeholder}
-            onChange={e => props.onChange(e.target.value)}
+            className={`textarea ${size ? `is-${size}` : ''} ${className}`}
+            type={type}
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            onChange={e => onChange(e.target.value)}
+            {...otherProps}
           />
         )}
 
-        {props.type !== "textarea" && (
+        {type !== 'textarea' && (
           <input
-            className="input is-medium"
-            type={props.type}
-            value={props.value}
-            placeholder={props.placeholder}
-            onChange={e => props.onChange(e.target.value)}
+            className={`input ${size ? `is-${size}` : ''} ${className}`}
+            type={type}
+            name={name}
+            value={value}
+            placeholder={placeholder}
+            onChange={e => onChange(e.target.value)}
+            {...otherProps}
           />
         )}
       </div>
 
-      {props.error && <p className="help is-danger">{props.error.message}</p>}
+      {error && <p className="help is-danger">{error.message}</p>}
     </div>
   );
 }

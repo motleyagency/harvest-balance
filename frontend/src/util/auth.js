@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
-import queryString from 'query-string';
 import storage, { storageTokenKey, storageUserKey } from './storage';
 import { useRouter } from './router';
 import { getAuthUrl, handleAuth, account } from './harvestBalance';
@@ -58,7 +57,7 @@ function useProvideAuth() {
           setIsAuthenticating(false);
         });
     }
-  }, []);
+  }, [code, push, scope]);
 
   return {
     isAuthenticating,
