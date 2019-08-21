@@ -1,9 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Suspense, Fragment, lazy } from 'react';
 import { useAuth } from '../../util/auth';
 import Navbar from './../../components/Navbar';
 import SignInSection from './../../components/SignInSection';
-import BalanceReportSection from '../../components/BalanceReportSection';
 import './styles.scss';
+
+const BalanceReportSection = lazy(() =>
+  import('../../components/BalanceReportSection'),
+);
 
 function HomePage() {
   const { user } = useAuth();
@@ -14,7 +17,9 @@ function HomePage() {
       {!user ? (
         <SignInSection color="white" title="Welcome" />
       ) : (
-        <BalanceReportSection color="white" size="large" />
+        <Suspense fallback={<div>loading...</div>}>
+          <BalanceReportSection color="white" size="large" />
+        </Suspense>
       )}
     </Fragment>
   );
