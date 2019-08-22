@@ -1,6 +1,6 @@
 FROM node:latest
 
-ENV WORKDIR=/home/node/harvest-balance
+ENV WORKDIR=/home/node/harvest-balance-api
 
 WORKDIR ${WORKDIR}
 
@@ -12,12 +12,14 @@ USER node
 
 ENV NODE_ENV development
 
-RUN yarn --pure-lockfile
-RUN CI=true yarn run test
-RUN yarn build
+RUN npm install
+# RUN CI=true yarn run test
+RUN npm run build
+
+RUN rm -fr src
 
 ENV NODE_ENV production
 
 EXPOSE 5000
 
-CMD [ "yarn", "run", "server" ]
+CMD [ "npm", "run", "serve" ]

@@ -1,5 +1,4 @@
 import express from 'express';
-import path from 'path';
 import { getToken } from './auth';
 import { get as getReport } from './report';
 import { get as getAccount } from './account';
@@ -7,7 +6,6 @@ import { get as getAccount } from './account';
 require('dotenv-extended').load();
 
 const app = express();
-// const ROOT_FOLDER = path.resolve(__dirname, '..', 'dist');
 const PORT = process.env.SERVER_PORT || 5000;
 
 const handleError = (err, res) => {
@@ -71,15 +69,15 @@ app.get('/api/balance', (req, res) => {
     });
 });
 
-// all other requests gets forwarded to react
-// app.use('/', express.static(ROOT_FOLDER));
+app.get('/', (req, res) => {
+  res.send('Harvest Balance API');
+});
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Unknown request' });
-  // res.sendFile('index.html', { root: ROOT_FOLDER });
 });
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
-  console.log(`Harvest Balance app running on port ${PORT}!`);
+  console.log(`Harvest Balance API running on port ${PORT}!`);
 });
