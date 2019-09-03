@@ -23,7 +23,7 @@ export const getAuthUrl = () =>
     .then(res => res.json());
 
 export const handleAuth = (authCode, scope) =>
-  fetch(`${BACKEND_ENDPOINT}/oauth-success?code=${authCode}&scope=${scope}`, {
+  fetch(`${BACKEND_ENDPOINT}/auth/success?code=${authCode}&scope=${scope}`, {
     headers: jsonHeaders(),
   })
     .then(errorChecker)
