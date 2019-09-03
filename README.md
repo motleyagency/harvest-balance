@@ -1,4 +1,4 @@
-# Havest Balance
+# Harvest Balance
 
 Calculate your time balance using the Harvest API.
 
