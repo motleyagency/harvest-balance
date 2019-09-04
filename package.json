@@ -1,87 +1,71 @@
 {
   "name": "harvest-balance",
-  "version": "0.3.0",
-  "description": "Calculate hour balance using Harvest API",
-  "main": "server/index.js",
-  "author": "Fredrik Boström <fredrik@fredrikbostrom.net>",
-  "license": "MIT",
-  "scripts": {
-    "build": "webpack",
-    "eslint": "eslint",
-    "motley-eslint-init": "motley-eslint-init",
-    "start-dist": "serve -p 8081 dist/",
-    "server": "babel-node . --presets es2015,stage-2",
-    "server-watch": "nodemon --exec yarn run server",
-    "start": "webpack-dev-server",
-    "stats": "webpack --profile --json > stats.json",
-    "test": "jest",
-    "test:watch": "jest --watch"
-  },
+  "version": "2.0.0",
+  "private": true,
   "dependencies": {
-    "babel-polyfill": "^6.23.0",
-    "bluebird": "^3.5.0",
-    "bootstrap": "4.0.0-alpha.6",
-    "cors": "^2.8.1",
-    "dotenv-extended": "^1.0.4",
-    "express": "^4.15.2",
-    "harvest": "https://github.com/bostrom/node-harvest.git#342bd65abe9da26ca0a0a839a30673de05be2b32",
-    "helmet": "^3.4.0",
-    "lodash": "^4.17.4",
-    "lodash.debounce": "^4.0.8",
-    "memory-cache": "^0.1.6",
-    "moment": "^2.18.1",
-    "moment-business": "^3.0.1",
-    "object-hash": "^1.1.8",
-    "prop-types": "^15.5.8",
-    "react": "^15.4.2",
-    "react-addons-css-transition-group": "^15.4.2",
-    "react-addons-transition-group": "^15.4.2",
-    "react-dom": "^15.4.2",
-    "react-redux": "^5.0.2",
-    "react-router-dom": "^4.1.1",
-    "react-sticky": "^5.0.5",
-    "reactstrap": "^4.2.0",
-    "redux": "^3.6.0",
-    "redux-saga": "^0.14.3",
-    "styled-components": "^1.4.5",
-    "tether": "^1.4.0",
-    "twix": "^1.1.4"
+    "analytics": "0.1.16",
+    "analytics-plugin-ga": "0.1.5",
+    "bulma": "0.7.5",
+    "firebase": "6.3.5",
+    "lodash.groupby": "^4.6.0",
+    "moment": "^2.24.0",
+    "node-fetch": "^2.6.0",
+    "node-sass": "4.12.0",
+    "query-string": "6.8.2",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-router-dom": "5.0.1",
+    "react-scripts": "3.0.1",
+    "react-timer-hook": "^1.1.7",
+    "react-transition-group": "^4.2.2",
+    "styled-components": "^4.3.2",
+    "twix": "^1.3.0"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,graphql,md,css,scss,less,ts}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.2",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.23.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "clean-webpack-plugin": "^0.1.15",
-    "css-loader": "^0.28.0",
-    "dotenv-extended": "^1.0.4",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-config-motley": "^6.0.1",
-    "eslint-loader": "^1.6.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
-    "expose-loader": "^0.7.3",
-    "extract-text-webpack-plugin": "^2.0.0-beta.4",
-    "file-loader": "^0.11.1",
-    "html-webpack-plugin": "^2.28.0",
-    "html-webpack-template": "^6.0.1",
-    "jest": "^19.0.2",
-    "node-http-proxy": "^0.2.3",
-    "node-sass": "^4.5.0",
-    "nodemon": "^1.11.0",
-    "sass-loader": "^6.0.1",
-    "serve": "^5.1.3",
-    "style-loader": "^0.16.1",
-    "supertest": "^3.0.0",
-    "svg-url-loader": "^2.0.2",
-    "url-loader": "^0.5.7",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1",
-    "webpack-merge": "^3.0.0"
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-motley": "^11.1.1",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "0.0.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.2.1",
+    "prettier": "^1.18.2"
   }
 }

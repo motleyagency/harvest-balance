@@ -1,9 +1,8 @@
 module.exports = {
-  "extends": "motley",
-  "rules": {
-    semi: ["error", "never"],
-  },
+  extends: 'motley',
   env: {
     browser: true,
-  }
-}
+    node: true,
+    jest: true,
+  },
+};

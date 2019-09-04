@@ -1,63 +1,77 @@
-import React from "react"
-import { string, func } from "prop-types"
-import styled from "styled-components"
-import { Col, Form, FormGroup, Label, Input, Button } from "reactstrap"
+import React from 'react';
+import { string, func } from 'prop-types';
+import SectionButton from '../SectionButton';
+import FormField from '../FormField';
+import './styles.scss';
 
-const DateInput = styled(Input)`padding: 6px 8px;`
+function BalanceReportForm({
+  loading,
+  startDate,
+  setStartDate,
+  maxDate,
+  includeToday,
+  toggleIncludeToday,
+  onSubmit,
+}) {
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit();
+  };
 
-class BalanceReportForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.setStartDate = this.setStartDate.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.state = {
-      startDate: props.startDate,
-    }
-  }
-
-  setStartDate(e) {
-    this.setState({
-      startDate: e.target.value,
-    })
-  }
-
-  handleSubmit() {
-    this.props.onSubmit(this.state.startDate)
-  }
-
-  render() {
-    return (
-      <Form>
-        <FormGroup row className="justify-content-center">
-          <Label xs={12} md={3} lg={2} className="col text-sm-right">
-            Start date
-          </Label>
-          <Col xs={12} sm={4} md={3} lg={2}>
-            <DateInput
-              type="date"
-              name="startDate"
-              value={this.state.startDate}
-              onChange={this.setStartDate}
-            />
-          </Col>
-          <Col xs={12} sm md={3} lg={2} className="pt-2 pt-sm-0">
-            <Button
-              onClick={this.handleSubmit}
-              className="btn-block"
-              color="success"
-            >
-              Get balance
-            </Button>
-          </Col>
-        </FormGroup>
-      </Form>
-    )
-  }
+  return (
+    <form>
+      <div className="field is-horizontal">
+        <div className="field-label is-normal">
+          <label className="label">Start calculating balance from</label>
+        </div>
+        <div className="field-body">
+          <FormField
+            narrow={true}
+            type="date"
+            name="startDate"
+            max={maxDate}
+            value={startDate}
+            onChange={setStartDate}
+          />
+        </div>
+      </div>
+      <div className="field is-horizontal">
+        <div className="field-label">
+          <label className="label" htmlFor="includeToday">
+            Include today
+          </label>
+        </div>
+        <div className="field-body">
+          <div className="field is-narrow">
+            <label className="checkbox">
+              <input
+                id="includeToday"
+                type="checkbox"
+                name="includeToday"
+                checked={includeToday}
+                onChange={toggleIncludeToday}
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div className="has-text-centered">
+        <SectionButton
+          onClick={handleSubmit}
+          state={loading && 'loading'}
+          disabled={loading}
+        >
+          Get balance
+        </SectionButton>
+      </div>
+    </form>
+  );
 }
 
 BalanceReportForm.propTypes = {
   startDate: string.isRequired,
+  setStartDate: func.isRequired,
   onSubmit: func.isRequired,
-}
+};
 
-export default BalanceReportForm
+export default BalanceReportForm;

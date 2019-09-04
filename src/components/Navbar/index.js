@@ -1,124 +1,80 @@
-import React from "react"
-import PropTypes from "prop-types"
-import styled from "styled-components"
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap"
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import NavbarContainer from './../NavbarContainer';
+import { Link } from './../../util/router.js';
+import { useAuth } from './../../util/auth.js';
+import './styles.scss';
+
+const BrandLink = styled(Link)`
+  color: #f66621;
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: #f66621;
+  }
+`;
 
 const ProfilePic = styled.img`
   border-radius: 100%;
-  width: 36px;
-  height: 36px;
-  margin-left: 1rem;
-`
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-right: 1rem;
+`;
 
-const Username = styled.span`
-`
-
-const ProfilePlaceholder = styled.i`
-  border-radius: 100%;
-  width: 38px;
-  height: 38px;
-  margin-left: 1rem;
-  font-size: 1.5rem;
-  line-height: 2.0rem;
-  background-color: #999;
-  color: #fff;
-`
-
-const ProfileToggler = ({ user, ...rest }) => {
-  const divProps = Object.assign({}, rest)
-  delete divProps.type
-
-  if (!user) {
-    return (
-      <div {...divProps}>
-        <ProfilePlaceholder className="icon-user" />
-      </div>
-    )
-  }
+function Navbar(props) {
+  const { user, signout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div {...divProps}>
-      <Username>{`${user.first_name}`}</Username>
-      <ProfilePic src={user.avatar_url} alt={`${user.first_name} ${user.last_name}`} />
-    </div>
-  )
-}
+    <NavbarContainer spaced={props.spaced} color={props.color}>
+      <div className="container">
+        <div className="navbar-brand">
+          <div className="navbar-item">
+            <BrandLink to="/">Harvest Balance</BrandLink>
+          </div>
+          <div
+            className={'navbar-burger burger' + (menuOpen ? ' is-active' : '')}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span />
+            <span />
+            <span />
+          </div>
+        </div>
+        <div className={'navbar-menu' + (menuOpen ? ' is-active' : '')}>
+          <div className="navbar-end">
+            {user && (
+              <div className="navbar-item has-dropdown is-hoverable">
+                <Link className="navbar-link" to="/">
+                  <ProfilePic
+                    src={user.avatar_url}
+                    alt={`${user.first_name} ${user.last_name}`}
+                  />
 
-ProfileToggler.propTypes = {
-  user: PropTypes.shape({}),
-}
-ProfileToggler.defaultProps = {
-  user: undefined,
-}
-
-const NavbarTogglerFlex = styled(NavbarToggler)`
-  padding: 0;
-  display: flex;
-  align-items: center;
-  border: none;
-`
-
-const Strong = styled.strong`
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.07rem;
-`
-
-// eslint-disable-next-line no-unused-vars
-class AppNavbar extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.toggle = this.toggle.bind(this)
-    this.state = {
-      isOpen: false,
-    }
-  }
-
-  componentDidMount() {
-    const { user, loadProfile } = this.props
-    if (!user) {
-      loadProfile()
-    }
-  }
-
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    })
-  }
-
-  render() {
-    const { user, logout } = this.props
-
-    return (
-      <div>
-        <Navbar color="primary" fixed="top" inverse>
-          <NavbarTogglerFlex right onClick={this.toggle} tag={ProfileToggler} user={user} />
-          <NavbarBrand href="/"><Strong>Harvest</Strong> Balance</NavbarBrand>
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem className="text-right">
-                <NavLink onClick={logout}>Logout</NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
+                  {user.first_name}
+                </Link>
+                <div className="navbar-dropdown is-boxed">
+                  <Link
+                    className="navbar-item"
+                    to="/signout"
+                    onClick={e => {
+                      e.preventDefault();
+                      signout();
+                    }}
+                  >
+                    Sign out
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    )
-  }
+    </NavbarContainer>
+  );
 }
 
-AppNavbar.propTypes = {
-  // company: PropTypes.shape({}),
-  user: PropTypes.shape({}),
-  logout: PropTypes.func.isRequired,
-  loadProfile: PropTypes.func.isRequired,
-}
-
-AppNavbar.defaultProps = {
-  user: null,
-  company: null,
-}
-
-export default AppNavbar
+export default Navbar;

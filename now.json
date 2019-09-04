@@ -1,0 +1,9 @@
+{
+  "env": {
+    "HARVEST_SUBDOMAIN": "@harvest_subdomain",
+    "HARVEST_ACCOUNT_ID": "@harvest_account_id",
+    "HARVEST_CLIENT_ID": "@harvest_client_id",
+    "HARVEST_SECRET": "@harvest_secret",
+    "DEDUCTIBLE_TASKS": "@deductible_tasks"
+  }
+}
