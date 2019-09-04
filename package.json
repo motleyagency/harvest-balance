@@ -1,7 +1,7 @@
 {
   "name": "harvest-balance",
   "version": "2.0.0",
-  "private": false,
+  "private": true,
   "dependencies": {
     "analytics": "0.1.16",
     "analytics-plugin-ga": "0.1.5",
