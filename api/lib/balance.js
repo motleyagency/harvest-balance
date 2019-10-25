@@ -14,6 +14,7 @@ const fetchTimeEntries = (token, { fromDate, toDate }, url) => {
     url ||
     `https://api.harvestapp.com/v2/time_entries?from=${fromDate}&to=${toDate}`;
 
+  console.log(currentUrl);
   return fetch(currentUrl, {
     method: 'GET',
     headers: {

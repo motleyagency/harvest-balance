@@ -5,6 +5,8 @@ module.exports = (req, res) => {
   const { startDate, endDate } = req.query;
   const token = req.headers.harvest_token;
 
+  console.log(startDate, endDate);
+
   getProjectBalance(token, { startDate, endDate })
     .then(report => {
       res.json(report);
