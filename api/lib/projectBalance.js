@@ -2,9 +2,11 @@ const fetch = require('node-fetch');
 const moment = require('moment');
 const { fetchTimeEntries } = require('./balance');
 
-const getProjectBalance = async (token, { startDate, endDate }) => {
-  const URL =
-    'https://api.forecastapp.com/assignments?start_date=2019-10-21&end_date=2019-10-25&person_id=228208';
+const getProjectBalance = async (token, { startDate, endDate, personId }) => {
+  const start = moment(startDate).format('YYYY-MM-DD');
+  const end = moment(endDate).format('YYYY-MM-DD');
+
+  const URL = `https://api.forecastapp.com/assignments?start_date=${start}&end_date=${end}&person_id=${personId}`;
 
   const assignments = await fetch(URL, {
     method: 'GET',
