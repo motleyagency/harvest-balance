@@ -3,6 +3,8 @@ import { useAuth } from '../../util/auth';
 import Navbar from '../../components/Navbar';
 import SignInSection from '../../components/SignInSection';
 
+const ProjectsSection = lazy(() => import('../../components/ProjectsSection'));
+
 function ProjectsPage() {
   const { user } = useAuth();
 
@@ -12,7 +14,9 @@ function ProjectsPage() {
       {!user ? (
         <SignInSection color="white" title="Welcome" />
       ) : (
-        <Suspense fallback={<div>loading...</div>}>moi</Suspense>
+        <Suspense fallback={<div>loading...</div>}>
+          <ProjectsSection />
+        </Suspense>
       )}
     </Fragment>
   );
