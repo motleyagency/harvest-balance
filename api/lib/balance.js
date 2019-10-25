@@ -28,6 +28,7 @@ const fetchTimeEntries = (token, { fromDate, toDate }, url) => {
       if (response.error) {
         throw response;
       }
+      console.log(response);
       return response;
     })
     .then(({ time_entries: timeEntries, links: { next } }) => {
@@ -169,4 +170,5 @@ const getBalance = (token, { startDate, includeToday }) => {
 
 module.exports = {
   getBalance,
+  fetchTimeEntries,
 };

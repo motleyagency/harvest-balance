@@ -1,11 +1,11 @@
 const { handleError } = require('../lib');
-const { getBalance } = require('../lib/balance');
+const { getProjectBalance } = require('../lib/projectBalance');
 
 module.exports = (req, res) => {
-  const { startDate, includeToday } = req.query;
+  const { startDate, endDate } = req.query;
   const token = req.headers.harvest_token;
 
-  getBalance(token, { startDate, includeToday: includeToday === 'true' })
+  getProjectBalance(token, { startDate, endDate })
     .then(report => {
       res.json(report);
     })

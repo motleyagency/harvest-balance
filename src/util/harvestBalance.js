@@ -46,6 +46,16 @@ export const balanceReport = ({ startDate, includeToday = false }) =>
     .then(errorChecker)
     .then(res => res.json());
 
+export const projectBalance = ({ startDate, endDate }) =>
+  fetch(
+    `${BACKEND_ENDPOINT}/project-balance?startDate=${startDate}&endDate=${endDate}`,
+    {
+      headers: jsonHeaders(),
+    },
+  )
+    .then(errorChecker)
+    .then(res => res.json());
+
 export default {
   getAuthUrl,
   handleAuth,
