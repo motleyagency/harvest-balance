@@ -46,9 +46,9 @@ export const balanceReport = ({ startDate, includeToday = false }) =>
     .then(errorChecker)
     .then(res => res.json());
 
-export const projectBalance = ({ startDate, endDate }) =>
+export const projectBalance = ({ startDate, endDate, harvestUserId }) =>
   fetch(
-    `${BACKEND_ENDPOINT}/project-balance?startDate=${startDate}&endDate=${endDate}`,
+    `${BACKEND_ENDPOINT}/project-balance?startDate=${startDate}&endDate=${endDate}&harvestUserId=${harvestUserId}`,
     {
       headers: jsonHeaders(),
     },

@@ -18,14 +18,16 @@ const getSum = arr => arr.reduce((sum, acc) => sum + Object.values(acc)[0], 0);
 
 function ProjectsSection() {
   const [data, setData] = useState({});
-  const auth = useAuth();
-  console.log(data);
+  const {
+    user: { id: userId },
+  } = useAuth();
 
+  console.log(data);
   const handleSubmit = async (startDate, endDate) => {
     const balance = await projectBalance({
       startDate: '20191021',
       endDate: '20191025',
-      personId: '228208', //this is freddes' user id, should be dynamic
+      harvestUserId: userId,
     });
     setData(balance);
   };
@@ -35,10 +37,10 @@ function ProjectsSection() {
       [`${projId}`]: allocation / 360,
     }),
   );
-  const beenDone = ((data && data.timeEntries) || []).map(asd =>
-    console.log('---', asd),
-  );
-
+  const beenDone = ((data && data.timeEntries) || []).map(reported => ({
+    [`${reported.project.id}`]: reported.hours,
+  }));
+  console.log(beenDone);
   return (
     <ShrinkingSection>
       <button type="button" onClick={() => handleSubmit()}>
