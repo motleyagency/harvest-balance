@@ -21,7 +21,7 @@ const getProjectBalance = async (token, { startDate, endDate, personId }) => {
       if (response.error) {
         throw response;
       }
-      return response;
+      return response.assignments;
     });
 
   const timeEntries = await fetchTimeEntries(token, {

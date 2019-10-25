@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useAuth } from '../../util/auth';
 import { projectBalance } from '../../util/harvestBalance';
 import Section from '../Section';
 import ProjectProgress from '../ProjectProgress';
@@ -17,11 +18,14 @@ const getSum = arr => arr.reduce((sum, acc) => sum + Object.values(acc)[0], 0);
 
 function ProjectsSection() {
   const [data, setData] = useState({});
+  const auth = useAuth();
   console.log(data);
+
   const handleSubmit = async (startDate, endDate) => {
     const balance = await projectBalance({
       startDate: '20191021',
       endDate: '20191025',
+      personId: '228208', //this is freddes' user id, should be dynamic
     });
     setData(balance);
   };
