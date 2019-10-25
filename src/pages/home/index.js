@@ -8,7 +8,7 @@ const BalanceReportSection = lazy(() =>
 function HomePage() {
   return (
     <Page>
-      <BalanceReportSection color="white" size="large" />
+      <BalanceReportSection color="white" />
     </Page>
   );
 }

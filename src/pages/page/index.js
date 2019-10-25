@@ -1,7 +1,8 @@
 import React, { Suspense, Fragment } from 'react';
 import { useAuth } from '../../util/auth';
-import Navbar from './../../components/Navbar';
-import SignInSection from './../../components/SignInSection';
+import Navbar from '../../components/Navbar';
+import SignInSection from '../../components/SignInSection';
+import Tabs from '../../components/Tabs';
 import './styles.scss';
 
 function Page({ children }) {
@@ -10,6 +11,7 @@ function Page({ children }) {
   return (
     <Fragment>
       <Navbar color="white" spaced={true} />
+      <Tabs />
       {!user ? (
         <SignInSection color="white" title="Welcome" />
       ) : (

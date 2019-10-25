@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { projectBalance } from '../../util/harvestBalance';
+import Section from '../Section';
+import ProjectProgress from '../ProjectProgress';
+
+const ShrinkingSection = styled(Section)`
+  transition: padding 0.5s ease-out;
+`;
+
+const Breakdown = styled.div`
+  padding: 1em 0 0 2em;
+  max-width: 800px;
+`;
+
+const getSum = arr => arr.reduce((sum, acc) => sum + Object.values(acc)[0], 0);
 
 function ProjectsSection() {
   const [data, setData] = useState({});
-
+  console.log(data);
   const handleSubmit = async (startDate, endDate) => {
     const balance = await projectBalance({
       startDate: '20191021',
@@ -12,14 +26,39 @@ function ProjectsSection() {
     setData(balance);
   };
 
+  const toBeDone = ((data && data.assignments) || []).map(
+    ({ allocation, project_id: projId }) => ({
+      [`${projId}`]: allocation / 360,
+    }),
+  );
+  const beenDone = ((data && data.timeEntries) || []).map(asd =>
+    console.log('---', asd),
+  );
+
   return (
-    <h1>
-      Projects
+    <ShrinkingSection>
       <button type="button" onClick={() => handleSubmit()}>
         Click me
       </button>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </h1>
+
+      <ProjectProgress
+        name="Total"
+        scope={getSum(toBeDone)}
+        progress={getSum(beenDone)}
+      />
+      <Breakdown>
+        {toBeDone.map(project => {
+          const projectName = Object.keys(project)[0];
+          return (
+            <ProjectProgress
+              name={projectName}
+              scope={project[projectName]}
+              progress={beenDone[projectName] || 0}
+            />
+          );
+        })}
+      </Breakdown>
+    </ShrinkingSection>
   );
 }
 
