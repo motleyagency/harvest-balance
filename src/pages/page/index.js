@@ -11,11 +11,13 @@ function Page({ children }) {
   return (
     <Fragment>
       <Navbar color="white" spaced={true} />
-      <Tabs />
       {!user ? (
         <SignInSection color="white" title="Welcome" />
       ) : (
-        <Suspense fallback={<div>loading...</div>}>{children}</Suspense>
+        <Suspense fallback={<div>loading...</div>}>
+          <Tabs />
+          {children}
+        </Suspense>
       )}
     </Fragment>
   );
