@@ -24,7 +24,12 @@ const getProjectBalance = async (
     headers: headers(token),
   })
     .then(res => res.json())
-    .then(res => res.projects);
+    .then(res => {
+      if (res.error) {
+        throw res;
+      }
+      return res.projects;
+    });
 
   const personId = await fetch(peopleUrl, {
     method: 'GET',
@@ -52,7 +57,7 @@ const getProjectBalance = async (
     .then(ass =>
       ass.map(a => ({
         ...a,
-        harvest_project_id: projects.find(p => p.id === a.project_id)
+        harvest_project_id: (projects.find(p => p.id === a.project_id) || {})
           .harvest_id,
       })),
     );
