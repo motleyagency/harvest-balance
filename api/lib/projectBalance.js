@@ -55,11 +55,17 @@ const getProjectBalance = async (
       return response.assignments;
     })
     .then(ass =>
-      ass.map(a => ({
-        ...a,
-        harvest_project_id: (projects.find(p => p.id === a.project_id) || {})
-          .harvest_id,
-      })),
+      ass.map(a => {
+        const project = projects.find(p => p.id === a.project_id) || {};
+
+        return {
+          ...a,
+          weekly_allocation:
+            a.allocation * (moment(a.end_date).diff(a.start_date, 'days') + 1),
+          harvest_project_id: project.id,
+          project_name: project.name,
+        };
+      }),
     );
 
   const timeEntries = await fetchTimeEntries(token, {
