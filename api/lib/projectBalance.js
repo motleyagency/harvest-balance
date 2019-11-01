@@ -17,6 +17,14 @@ const getProjectBalance = async (
 
   const BASE_URL = 'https://api.forecastapp.com';
   const peopleUrl = `${BASE_URL}/people`;
+  const projectsUrl = `${BASE_URL}/projects`;
+
+  const projects = await fetch(projectsUrl, {
+    method: 'GET',
+    headers: headers(token),
+  })
+    .then(res => res.json())
+    .then(res => res.projects);
 
   const personId = await fetch(peopleUrl, {
     method: 'GET',
@@ -40,7 +48,14 @@ const getProjectBalance = async (
         throw response;
       }
       return response.assignments;
-    });
+    })
+    .then(ass =>
+      ass.map(a => ({
+        ...a,
+        harvest_project_id: projects.find(p => p.id === a.project_id)
+          .harvest_id,
+      })),
+    );
 
   const timeEntries = await fetchTimeEntries(token, {
     fromDate: moment(startDate).format('YYYYMMDD'),
