@@ -62,7 +62,7 @@ const getProjectBalance = async (
           ...a,
           weekly_allocation:
             a.allocation * (moment(a.end_date).diff(a.start_date, 'days') + 1),
-          harvest_project_id: project.id,
+          harvest_project_id: project.harvest_id,
           project_name: project.name,
         };
       }),
