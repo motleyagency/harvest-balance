@@ -60,22 +60,74 @@ const getProjectBalance = async (
 
         return {
           ...a,
-          weekly_allocation:
-            a.allocation * (moment(a.end_date).diff(a.start_date, 'days') + 1),
           harvest_project_id: project.harvest_id,
           project_name: project.name,
         };
       }),
     );
 
+  const assignmentPeriodSummaryByProject = assignments.reduce((acc, a) => {
+    if (!acc[a.project_id]) {
+      acc[a.project_id] = {
+        forecast_user_id: a.person_id,
+        harvest_user_id: +harvestUserId,
+        forecast_project_id: a.project_id,
+        harvest_project_id: a.harvest_project_id,
+        project_name: a.project_name,
+        period_allocation_days: 0,
+        period_allocation_hours: 0,
+      };
+    }
+    const assStartInPeriod = moment.max(start, moment(a.start_date));
+    const assEndInPeriod = moment.min(end, moment(a.end_date));
+    const assDays = assEndInPeriod.diff(assStartInPeriod, 'days') + 1;
+
+    acc[a.project_id].period_allocation_days += assDays;
+    acc[a.project_id].period_allocation_hours +=
+      (a.allocation * assDays) / 3600;
+
+    return acc;
+  }, {});
+
+  const assignedHarvestProjectIds = Object.values(
+    assignmentPeriodSummaryByProject,
+  ).map(a => a.harvest_project_id);
+
   const timeEntries = await fetchTimeEntries(token, {
     fromDate: moment(startDate).format('YYYYMMDD'),
     toDate: moment(endDate).format('YYYYMMDD'),
   });
 
+  const timeEntriesPeriodSummaryByProject = timeEntries.reduce((acc, entry) => {
+    if (!assignedHarvestProjectIds.includes(entry.project.id)) {
+      return acc;
+    }
+
+    if (!acc[entry.project.id]) {
+      acc[entry.project.id] = {
+        harvest_project_id: entry.project.id,
+        logged_hours: 0,
+      };
+    }
+
+    acc[entry.project.id].logged_hours += entry.hours;
+
+    return acc;
+  }, {});
+
+  const timeSummary = Object.values(assignmentPeriodSummaryByProject).map(
+    ass => ({
+      ...ass,
+      ...timeEntriesPeriodSummaryByProject[ass.harvest_project_id],
+    }),
+  );
+
   return {
-    assignments,
-    timeEntries,
+    timeSummary,
+    // assignmentPeriodSummary: Object.values(assignmentPeriodSummaryByProject),
+    // timeEntriesPeriodSummary: Object.values(timeEntriesPeriodSummaryByProject),
+    // assignments,
+    // timeEntries,
   };
 };
 
