@@ -1,20 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../util/auth';
 import { projectBalance } from '../../util/harvestBalance';
 import Section from '../Section';
 import ProjectProgress from '../ProjectProgress';
+import Loader from '../Loader';
 
 const ShrinkingSection = styled(Section)`
   transition: padding 0.5s ease-out;
 `;
 
 const Breakdown = styled.div`
-  padding: 1em 0 0 2em;
+  ${({ showsTotal }) =>
+    showsTotal
+      ? `
+      padding: 1em 0 0 2em
+    `
+      : `
+      padding: 0;
+    `};
+
   max-width: 800px;
 `;
 
-const getSum = arr => arr.reduce((sum, acc) => sum + Object.values(acc)[0], 0);
+const getTotalHours = arr =>
+  arr.reduce(
+    (acc, curr) => ({
+      totalReportedHours: acc.totalReportedHours + curr.logged_hours,
+      totalHours: acc.totalHours + curr.period_allocation_hours,
+    }),
+    { totalReportedHours: 0, totalHours: 0 },
+  );
 
 function ProjectsSection() {
   const [data, setData] = useState({});
@@ -22,7 +38,6 @@ function ProjectsSection() {
     user: { id: userId },
   } = useAuth();
 
-  console.log(data);
   const handleSubmit = async (startDate, endDate) => {
     const balance = await projectBalance({
       startDate: '20191021',
@@ -32,37 +47,45 @@ function ProjectsSection() {
     setData(balance);
   };
 
-  const toBeDone = ((data && data.assignments) || []).map(
-    ({ allocation, project_id: projId }) => ({
-      [`${projId}`]: allocation / 360,
-    }),
-  );
-  const beenDone = ((data && data.timeEntries) || []).map(reported => ({
-    [`${reported.project.id}`]: reported.hours,
-  }));
-  console.log(beenDone);
+  useEffect(() => {
+    // code to run on component mount
+    handleSubmit();
+  }, []);
+  const { timeSummary } = data;
+
+  if (!timeSummary || !timeSummary.length) {
+    return <Loader />;
+  }
+
+  const { totalHours, totalReportedHours } = getTotalHours(timeSummary);
+
   return (
     <ShrinkingSection>
-      <button type="button" onClick={() => handleSubmit()}>
-        Click me
-      </button>
-
-      <ProjectProgress
-        name="Total"
-        scope={getSum(toBeDone)}
-        progress={getSum(beenDone)}
-      />
-      <Breakdown>
-        {toBeDone.map(project => {
-          const projectName = Object.keys(project)[0];
-          return (
+      {timeSummary.length > 1 ? (
+        <ProjectProgress
+          key="total"
+          name="Total"
+          scope={totalHours}
+          progress={totalReportedHours}
+        />
+      ) : null}
+      <Breakdown showsTotal={timeSummary.length > 1}>
+        {timeSummary.map(
+          ({
+            logged_hours: reported,
+            project_name: name,
+            period_allocation_days: spread,
+            period_allocation_hours: hours,
+          }) => (
             <ProjectProgress
-              name={projectName}
-              scope={project[projectName]}
-              progress={beenDone[projectName] || 0}
+              key={name}
+              name={name}
+              spread={spread}
+              scope={hours}
+              progress={reported}
             />
-          );
-        })}
+          ),
+        )}
       </Breakdown>
     </ShrinkingSection>
   );
