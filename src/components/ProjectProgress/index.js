@@ -28,14 +28,14 @@ const ProgressBar = styled.div`
   &:before {
     content: '${({ min, max }) => Math.round((min / max) * 100)}% done';
     width: ${({ min }) => round(min / weeklyMax) * 100}%;
-    background: #0aad5c;
+    background: ${({ min }) => (min ? '#0aad5c' : '#b2dcc7')};
     position: absolute;
     left: -1px; top: -1px; bottom: -1px;
     font-size: 80%;
     color: #FFF;
     font-weight: 600;
     box-shadow: 4px 0 3px -2px rgba(0, 0, 0, .2);
-
+    white-space: nowrap;
   }
 
   &:after {

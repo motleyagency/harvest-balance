@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { useAuth } from '../../util/auth';
 import { projectBalance } from '../../util/harvestBalance';
 import Section from '../Section';
@@ -26,7 +27,7 @@ const Breakdown = styled.div`
 const getTotalHours = arr =>
   arr.reduce(
     (acc, curr) => ({
-      totalReportedHours: acc.totalReportedHours + curr.logged_hours,
+      totalReportedHours: acc.totalReportedHours + (curr.logged_hours || 0),
       totalHours: acc.totalHours + curr.period_allocation_hours,
     }),
     { totalReportedHours: 0, totalHours: 0 },
@@ -40,8 +41,16 @@ function ProjectsSection() {
 
   const handleSubmit = async (startDate, endDate) => {
     const balance = await projectBalance({
-      startDate: '20191021',
-      endDate: '20191025',
+      startDate:
+        startDate ||
+        moment()
+          .startOf('week')
+          .toDate(), // '20191021',
+      endDate:
+        endDate ||
+        moment()
+          .endOf('week')
+          .toDate(), // '20191025',
       harvestUserId: userId,
     });
     setData(balance);
@@ -82,7 +91,7 @@ function ProjectsSection() {
               name={name}
               spread={spread}
               scope={hours}
-              progress={reported}
+              progress={reported || 0}
             />
           ),
         )}
