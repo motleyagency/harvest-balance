@@ -76,14 +76,22 @@ const ProgressBar = styled.div(
 );
 
 function ProjectProgress({ name, scope, progress, ...rest }) {
-  if (!name || !scope) return null;
+  if (!name || !scope) {
+    return null;
+  }
+
+  const under = progress < scope;
+  const scopeDays = Math.round((scope / dailyHours) * 10) / 10;
+  const hoursDiff = Math.abs(Math.round((scope - progress) * 10) / 10);
 
   return (
     <ProgressWrap {...rest}>
       <Name>{name}</Name>
       <ProgressBar min={progress} max={scope} />
       <Allocation>
-        of {Math.round((scope / dailyHours) * 10) / 10} days allocated
+        {`${hoursDiff} hour${hoursDiff !== 1 ? 's' : ''} ${
+          under ? 'left of' : 'over'
+        } your ${scopeDays} day${scopeDays !== 1 ? 's' : ''} allocated`}
       </Allocation>
     </ProgressWrap>
   );
