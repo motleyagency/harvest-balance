@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import SectionButton from '../SectionButton';
 import styled from 'styled-components';
+import SectionButton from '../SectionButton';
 import harvestIcon from '../../assets/harvest-h.svg';
 import { useAuth } from '../../util/auth';
 
@@ -19,7 +19,7 @@ const SignIn = () => {
 
   const handleSignIn = () => {
     signin().catch(err => {
-      setError(err);
+      setError(err.message);
     });
   };
 

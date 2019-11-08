@@ -10,15 +10,9 @@ import { balanceReport } from '../../util/harvestBalance';
 
 const ShrinkingSection = styled(Section)`
   transition: padding 0.5s ease-out;
-  ${({ size }) =>
-    size &&
-    `
-  && {
-    padding-top: calc(45vh - 85px);
-  }`}
 `;
 
-function BalanceSection({ color, size }) {
+function BalanceReportSection({ color, size }) {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const {
@@ -108,4 +102,4 @@ function BalanceSection({ color, size }) {
   );
 }
 
-export default BalanceSection;
+export default BalanceReportSection;

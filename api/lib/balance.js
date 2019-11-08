@@ -169,4 +169,5 @@ const getBalance = (token, { startDate, includeToday }) => {
 
 module.exports = {
   getBalance,
+  fetchTimeEntries,
 };

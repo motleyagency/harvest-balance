@@ -1,5 +1,6 @@
 import React from 'react';
 import HomePage from './../home';
+import ProjectPage from './../projects';
 import { Switch, Route, Router } from './../../util/router.js';
 // import analytics from './../../util/analytics.js';
 import { ProvideAuth } from './../../util/auth.js';
@@ -11,6 +12,7 @@ function App(props) {
       <ProvideAuth>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/projects" component={ProjectPage} />
 
           <Route
             component={({ location }) => {
