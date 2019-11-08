@@ -11,6 +11,8 @@ const Name = styled.h3`
   font-size: 1em;
 `;
 
+const ProgressWrap = styled.div``;
+
 const Allocation = styled.p`
   font-size: 80%;
   padding: 0.25em 0.75em;
@@ -59,17 +61,17 @@ const ProgressBar = styled.div(
 `,
 );
 
-function ProjectProgress({ name, scope, progress }) {
+function ProjectProgress({ name, scope, progress, ...rest }) {
   if (!name || !scope) return null;
 
   return (
-    <>
+    <ProgressWrap {...rest}>
       <Name>{name}</Name>
       <ProgressBar min={progress} max={scope} />
       <Allocation>
         of {Math.round((scope / dailyHours) * 10) / 10} days allocated
       </Allocation>
-    </>
+    </ProgressWrap>
   );
 }
 

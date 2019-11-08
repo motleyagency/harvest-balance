@@ -14,17 +14,13 @@ const Container = styled.div`
   }
 `;
 
-const Breakdown = styled.div`
-  ${({ showsTotal }) =>
-    showsTotal
-      ? `
-      padding: 1em 0 0 2em
-    `
-      : `
-      padding: 0;
-    `};
+const Breakdown = styled.div``;
 
-  max-width: 800px;
+const TotalProjectProgress = styled(ProjectProgress)`
+  margin-bottom: 1.5em;
+  padding-bottom: 1em;
+  // border-bottom: 1px solid rgba(0,0,0, .1);
+  font-size: 80%;
 `;
 
 const Date = styled.time`
@@ -102,7 +98,6 @@ function ProjectsSection() {
         startDate = startDate.subtract(Math.abs(subsMod), 'weeks');
         endDate = endDate.subtract(Math.abs(subsMod), 'weeks');
       }
-      console.log(startDate, endDate);
     }
 
     startDate = startDate.startOf('week').toDate();
@@ -175,7 +170,7 @@ function ProjectsSection() {
     <Container>
       {controlsAndDate}
       {timeSummary.length > 1 ? (
-        <ProjectProgress
+        <TotalProjectProgress
           key="total"
           name="Total"
           scope={totalHours}
