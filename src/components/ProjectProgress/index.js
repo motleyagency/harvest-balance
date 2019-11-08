@@ -57,13 +57,13 @@ const ProgressBar = styled.div(
   &:before {
     content: '${Math.round((min / max) * 100)}% done';
     width: ${round((min <= max ? min : max) / weeklyMax) * 100}%;
-    background: ${min ? (min <= max ? '#0aad5c' : '#02da76') : '#b2dcc7'};
+    background: ${min ? (min <= max ? '#0aad5c' : '#02da76') : 'transparent'};
     position: absolute;
     left: -1px; top: -1px; bottom: -1px;
     font-size: 80%;
     color: #FFF;
     font-weight: ${min > max ? '900' : '600'};
-    box-shadow: 4px 0 3px -2px rgba(0, 0, 0, .2);
+    box-shadow: ${min ? '4px 0 3px -2px rgba(0, 0, 0, .2)' : 'none'};
     white-space: nowrap;
   }
 
