@@ -17,6 +17,20 @@ const Allocation = styled.p`
   font-size: 80%;
   padding: 0.25em 0.75em;
   text-align: right;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    display: block;
+    height: 3px;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent calc(20% - 2px),
+      rgb(200, 200, 200) 20%
+    );
+    margin: -3px -0.75em 0.25em;
+  }
 `;
 
 const ProgressBar = styled.div(
@@ -26,7 +40,7 @@ const ProgressBar = styled.div(
   border: 1px solid rgb(200,200,200);
   position: relative;
   // background: repeating-linear-gradient(
-  //   -55deg,
+  //   -45deg,
   //   #333,
   //   #333 10px,
   //   #444 10px,
