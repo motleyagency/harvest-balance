@@ -15,7 +15,7 @@ const LoaderStyle = styled.div`
     position: absolute;
     width: 26px;
     height: 26px;
-    background: hotpink;
+    background: #444;
     animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
@@ -26,7 +26,7 @@ const LoaderStyle = styled.div`
     display: block;
     width: 26px;
     height: 26px;
-    background: hotpink;
+    background: #444;
   }
 
   div:before {

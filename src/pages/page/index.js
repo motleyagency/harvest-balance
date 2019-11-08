@@ -1,25 +1,46 @@
-import React, { Suspense, Fragment } from 'react';
+import React, { Suspense } from 'react';
+import styled from 'styled-components';
 import { useAuth } from '../../util/auth';
 import Navbar from '../../components/Navbar';
 import SignInSection from '../../components/SignInSection';
 import Tabs from '../../components/Tabs';
-import './styles.scss';
+
+const PageContent = styled.main`
+  max-width: 750px;
+  margin: 0 auto 2em;
+  padding-top: 10vh;
+`;
+
+const Container = styled.div`
+  padding: 0 1em;
+`;
+
+const NavTitle = styled.p`
+  text-align: center;
+  margin: 0 auto 1em;
+`;
 
 function Page({ children }) {
   const { user } = useAuth();
 
   return (
-    <Fragment>
-      <Navbar color="white" spaced={true} />
+    <>
+      <Navbar color="white" spaced />
       {!user ? (
         <SignInSection color="white" title="Welcome" />
       ) : (
         <Suspense fallback={<div>loading...</div>}>
-          <Tabs />
-          {children}
+          <PageContent>
+            <Container>
+              <Tabs>
+                <NavTitle>Show balance as</NavTitle>
+              </Tabs>
+              {children}
+            </Container>
+          </PageContent>
         </Suspense>
       )}
-    </Fragment>
+    </>
   );
 }
 

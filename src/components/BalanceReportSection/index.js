@@ -12,7 +12,7 @@ const ShrinkingSection = styled(Section)`
   transition: padding 0.5s ease-out;
 `;
 
-function BalanceSection({ color, size }) {
+function BalanceReportSection({ color, size }) {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const {
@@ -102,4 +102,4 @@ function BalanceSection({ color, size }) {
   );
 }
 
-export default BalanceSection;
+export default BalanceReportSection;
