@@ -47,20 +47,28 @@ const WeekController = styled.button.attrs({ type: 'button' })`
   padding: 0.75em 0.5em;
   background: #e2e2e2;
   border: 0;
-  width: 50%;
   outline: none;
+  flex: 1 1 auto;
   display: block;
   font-size: 1em;
   white-space: nowrap;
   cursor: pointer;
   transition: background 0.125s ease-in;
 
-  &:last-of-type {
+  &:not(:first-of-type) {
     border-left: 1px solid rgba(0, 0, 0, 0.15);
   }
+  &:not(:first-of-type):not(:last-of-type):not(:hover):not(:active),
+  &:not(:first-of-type):not(:last-of-type):disabled {
+    background: #ececec;
+  }
 
-  &:hover,
-  &:active {
+  &:disabled {
+    cursor: default;
+  }
+
+  &:hover:not(:disabled),
+  &:active:not(:disabled) {
     background: #ccc;
     transition-timing-function: ease-out;
   }
@@ -143,6 +151,14 @@ function ProjectsSection() {
           }}
         >
           Previous week
+        </WeekController>
+        <WeekController
+          onClick={() => {
+            handleSubmit(0);
+          }}
+          disabled={!weekModifier}
+        >
+          This week
         </WeekController>
         <WeekController
           onClick={() => {
