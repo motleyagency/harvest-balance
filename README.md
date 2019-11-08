@@ -22,21 +22,30 @@ You need to set up an API client in Harvest and configure your environment varia
 
 You need to [register this app](https://id.getharvest.com/developers) as an Oauth2 client in your company's Harvest account to allow authenticating the app.
 
-The information you need to to run this app is
+Enter the following information in the application registration:
 
-- your company's Harvest subdomain (i.e. **youraccount**_.harvestapp.com_)
-- your company's Harvest id (visible in the browser's status bar when hovering over your account at [the accounts page](https://id.getharvest.com/accounts))
-- a client ID for this app (acquired when registering this app)
-- a client secret for this app (acquired when registering this app)
-- a redirect URL defining where to redirect users after authenticating (configured when registering this app, see below)
-
-The redirect URL is the exact path where `harvestapp.com` should redirect after authentication. Set this to the URL where the app will run, e.g. `https://harvestbalance.mycompany.com/`.
+- Name: Harvest Balance (or whatever you want to call this service)
+- Redirect URL: the URL where this service will be deployed (for development, enter `http://localhost:3000`)
+- Origin URL: same as the redirect URL
+- Multi account: select "I can work with multiple accounts"
+- Products: select "I want access to Harvest and Forecast"
 
 See detailed instructions for registering the app on [Harvest's website](https://help.getharvest.com/api-v2/authentication-api/authentication/authentication/#oauth2-application).
 
 ### App set up
 
-Create a `.env` file with the following information from the above step (make a copy of `.env.template`):
+The information you need to to run this app is
+
+- Your company's Harvest subdomain (i.e. **youraccount**_.harvestapp.com_)
+- Your company's Harvest id (visible in the browser's status bar when hovering over your account at [the accounts page](https://id.getharvest.com/accounts))
+- The Harvest client ID for this app (acquired when registering this app)
+- The Harvest client secret for this app (acquired when registering this app)
+- Your company's Forecast account id (visible in the URL when logging in to [Forecast](https://forecastapp.com/))
+- A list of deductible Harvest task ids (see below)
+
+The deductible task list is an array of Harvest task ids of the tasks that should be deducted from the cumulative balance. I.e. if the id for "Overtime holiday" is specified, all logged "Overtime holiday" hours will subtract from the balance instead of adding to it.
+
+Create a `.env` file at the root of the project with the following information from the above step (use `.env.template` as template):
 
 ```
 HARVEST_SUBDOMAIN=yourSubdomain
@@ -44,15 +53,36 @@ HARVEST_ACCOUNT_ID=1234567
 HARVEST_CLIENT_ID=yourClientId
 HARVEST_SECRET=yourClientSecret
 DEDUCTIBLE_TASKS=[1537475]
+FORECAST_ACCOUNT_ID=yourForecastAccountId
 ```
-
-The `DEDUCTIBLE_TASKS` is an array of task ids of the tasks that should be deducted from the cumulative balance. I.e. if the id for "Overtime holiday" is specified, all logged "Overtime holiday" hours will subtract from the balance instead of adding to it.
 
 Refer to the documentation of your hosting service of choice for information on how to set the environment variables for the deployed app.
 
-## Building and running
+## Development
 
-To deploy this app to Zeit Now, first install the [Now CLI](https://zeit.co/download). Then you need to add the above environment variables as [secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets/). Finally run `now` to build and deploy.
+To start the frontend in development mode, clone the repository and run
+
+```
+npm install
+npm start
+```
+
+The frontend, however, requires the backend functions to work properly. If you have the [Now CLI](https://zeit.co/download) installed, you can start the full stack development environment with
+
+```
+now dev
+```
+
+## Building and deploying
+
+To deploy this app to Zeit Now, follow these steps:
+
+- Install the [Now CLI](https://zeit.co/download)
+- Add the above environment variables in lowercase as [secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets/).<br/>
+  For example `now secrets add harvest_subdomain -- yourSubdomain`
+- Run `now` to build and deploy
+
+For other service providers, refer to their specific documentation.
 
 ## Server API
 
@@ -107,7 +137,7 @@ Gets the account data for the authenticated user. Essentially the same as Harves
 
 See the [Harvest API](https://help.getharvest.com/api-v2/users-api/users/users/#retrieve-the-currently-authenticated-user)
 
-### GET /api/report
+### GET /api/balance
 
 Gets report data for the authenticated user.
 
@@ -164,16 +194,52 @@ The response contains the report data.
 }
 ```
 
-## Development
+### GET /api/project-balance
 
-To start the frontend in development mode, clone the repository and run
+Gets report data per Forecast project for the authenticated user.
+
+#### Request
+
+**Headers**
+
+- `harvest_token`: The client token obtained through the auth process
+
+**Query parameters**
+
+- `startDate`: Mandatory date in `YYYYMMDD` format
+- `endDate`: Mandatory date in `YYYYMMDD` format
+- `harvestUserId`: the user ID of the currently logged in user (needed for mapping Forecast users to Harvest users)
+
+#### Response
+
+The response contains the Forecast allocation hours for the queried period and the logged hours on those projects, one object per scheduled project in Forecast.
 
 ```
-npm install
-npm start
+{
+  "timeSummary": [
+    {
+      "forecast_user_id": 123123,
+      "harvest_user_id": 321321,
+      "forecast_project_id": 112233,
+      "harvest_project_id": 332211,
+      "project_name": "Project A",
+      "period_allocation_days": 6,
+      "period_allocation_hours": 45,
+      "logged_hours": 52.28999999999999
+    },
+    {
+      "forecast_user_id": 313131,
+      "harvest_user_id": 131313,
+      "forecast_project_id": 553311,
+      "harvest_project_id": 115533,
+      "project_name": "Project B",
+      "period_allocation_days": 2,
+      "period_allocation_hours": 15,
+      "logged_hours": 5.49
+    }
+  ]
+}
 ```
-
-If you have the [Now CLI](https://zeit.co/download) installed, you can start the full stack development environment with `now dev`.
 
 ## License
 
