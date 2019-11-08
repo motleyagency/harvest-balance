@@ -25,13 +25,13 @@ const ProgressBar = styled.div(
   background: none;
   border: 1px solid rgb(200,200,200);
   position: relative;
-  background: repeating-linear-gradient(
-    -55deg,
-    #333,
-    #333 10px,
-    #444 10px,
-    #444 20px
-  );
+  // background: repeating-linear-gradient(
+  //   -55deg,
+  //   #333,
+  //   #333 10px,
+  //   #444 10px,
+  //   #444 20px
+  // );
 
   &:before,
   &:after {
