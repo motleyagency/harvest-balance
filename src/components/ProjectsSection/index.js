@@ -108,16 +108,15 @@ function ProjectsSection() {
       }
     }
 
-    startDate = startDate.startOf('week').toDate();
-    endDate = endDate.endOf('week').toDate();
+    startDate = startDate.startOf('week');
+    endDate = endDate.endOf('week');
 
     if (subsMod !== weekModifier) {
       setWeek(subsMod);
     }
     setDateString(
       [startDate, endDate]
-        .map((d, i) => {
-          const day = moment(d);
+        .map((day, i) => {
           if (!i) {
             return day.format('D.M');
           }
@@ -127,8 +126,8 @@ function ProjectsSection() {
     );
 
     const balance = await projectBalance({
-      startDate,
-      endDate,
+      startDate: startDate.format('YYYYMMDD'),
+      endDate: endDate.format('YYYYMMDD'),
       harvestUserId: userId,
     });
     setLoading(false);
