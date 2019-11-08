@@ -4,6 +4,7 @@
     "HARVEST_ACCOUNT_ID": "@harvest_account_id",
     "HARVEST_CLIENT_ID": "@harvest_client_id",
     "HARVEST_SECRET": "@harvest_secret",
-    "DEDUCTIBLE_TASKS": "@deductible_tasks"
+    "DEDUCTIBLE_TASKS": "@deductible_tasks",
+    "FORECAST_ACCOUNT_ID": "@forecast_account_id"
   }
 }
