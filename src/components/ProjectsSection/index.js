@@ -133,8 +133,8 @@ function ProjectsSection() {
       }
     }
 
-    startDate = startDate.startOf('week');
-    endDate = endDate.endOf('week');
+    startDate = startDate.startOf('isoWeek').toDate();
+    endDate = endDate.endOf('isoWeek').toDate();
 
     if (subsMod !== weekModifier) {
       setWeek(subsMod);
