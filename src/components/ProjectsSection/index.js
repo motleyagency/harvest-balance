@@ -133,8 +133,8 @@ function ProjectsSection() {
       }
     }
 
-    startDate = startDate.startOf('isoWeek').toDate();
-    endDate = endDate.endOf('isoWeek').toDate();
+    startDate = startDate.startOf('isoWeek');
+    endDate = endDate.endOf('isoWeek');
 
     if (subsMod !== weekModifier) {
       setWeek(subsMod);
@@ -195,15 +195,6 @@ function ProjectsSection() {
       </Controls>
     </ProjectHeader>
   );
-
-  // if () {
-  //   return (
-  //     <ProjectsContainer>
-  //       {controlsAndDate}
-  //       <Loader />
-  //     </ProjectsContainer>
-  //   );
-  // }
 
   const { totalHours, totalReportedHours } = hasData
     ? getTotalHours(timeSummary)
