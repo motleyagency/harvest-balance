@@ -6,13 +6,7 @@ import { projectBalance } from '../../util/harvestBalance';
 import ProjectProgress from '../ProjectProgress';
 import Loader from '../Loader';
 
-const Container = styled.div`
-  padding: 1em 0;
-
-  @media (min-width: 640px) {
-    padding: 3rem 1.5rem;
-  }
-`;
+const StyledLoader = styled(Loader)``;
 
 const Breakdown = styled.div``;
 
@@ -22,6 +16,37 @@ const TotalProjectProgress = styled(ProjectProgress)`
   // border-bottom: 1px solid rgba(0,0,0, .1);
   font-size: 80%;
 `;
+
+const Container = styled.div(
+  ({ isLoading }) => `
+  padding: 1em 0;
+
+  ${
+    isLoading
+      ? `
+    position: relative;
+
+    ${TotalProjectProgress},
+    ${Breakdown} {
+      opacity: .6;
+    }
+
+    ${StyledLoader} {
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      top: 26%;
+    }
+    `
+      : ''
+  }
+
+  @media (min-width: 640px) {
+    padding: 3rem 1.5rem;
+  }
+`,
+);
 
 const Date = styled.time`
   color: rgba(33, 33, 33, 0.8);
@@ -108,8 +133,8 @@ function ProjectsSection() {
       }
     }
 
-    startDate = startDate.startOf('week');
-    endDate = endDate.endOf('week');
+    startDate = startDate.startOf('isoWeek');
+    endDate = endDate.endOf('isoWeek');
 
     if (subsMod !== weekModifier) {
       setWeek(subsMod);
@@ -139,6 +164,7 @@ function ProjectsSection() {
     handleSubmit();
   }, []);
   const { timeSummary } = data;
+  const hasData = timeSummary && timeSummary.length;
 
   const controlsAndDate = (
     <ProjectHeader>
@@ -170,21 +196,15 @@ function ProjectsSection() {
     </ProjectHeader>
   );
 
-  if (!timeSummary || !timeSummary.length || isLoading) {
-    return (
-      <Container>
-        {controlsAndDate}
-        <Loader />
-      </Container>
-    );
-  }
-
-  const { totalHours, totalReportedHours } = getTotalHours(timeSummary);
+  const { totalHours, totalReportedHours } = hasData
+    ? getTotalHours(timeSummary)
+    : {};
 
   return (
-    <Container>
+    <Container isLoading={isLoading}>
       {controlsAndDate}
-      {timeSummary.length > 1 ? (
+      {isLoading || !hasData ? <StyledLoader /> : null}
+      {hasData && timeSummary.length > 1 ? (
         <TotalProjectProgress
           key="total"
           name="Total"
@@ -192,24 +212,26 @@ function ProjectsSection() {
           progress={totalReportedHours}
         />
       ) : null}
-      <Breakdown showsTotal={timeSummary.length > 1}>
-        {timeSummary.map(
-          ({
-            logged_hours: reported,
-            project_name: name,
-            period_allocation_days: spread,
-            period_allocation_hours: hours,
-          }) => (
-            <ProjectProgress
-              key={name}
-              name={name}
-              spread={spread}
-              scope={hours}
-              progress={reported || 0}
-            />
-          ),
-        )}
-      </Breakdown>
+      {hasData && (
+        <Breakdown showsTotal={timeSummary.length > 1}>
+          {timeSummary.map(
+            ({
+              logged_hours: reported,
+              project_name: name,
+              period_allocation_days: spread,
+              period_allocation_hours: hours,
+            }) => (
+              <ProjectProgress
+                key={name}
+                name={name}
+                spread={spread}
+                scope={hours}
+                progress={reported || 0}
+              />
+            ),
+          )}
+        </Breakdown>
+      )}
     </Container>
   );
 }

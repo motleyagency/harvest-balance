@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const LoaderBlock = styled.div``;
 const LoaderStyle = styled.div`
   position: relative;
   width: 64px;
@@ -9,7 +10,7 @@ const LoaderStyle = styled.div`
   transform-origin: 32px 32px;
   margin: 4em auto;
 
-  div {
+  ${LoaderBlock} {
     top: 23px;
     left: 19px;
     position: absolute;
@@ -17,26 +18,26 @@ const LoaderStyle = styled.div`
     height: 26px;
     background: #444;
     animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
 
-  div:after,
-  div:before {
-    content: ' ';
-    position: absolute;
-    display: block;
-    width: 26px;
-    height: 26px;
-    background: #444;
-  }
+    &:after,
+    &:before {
+      content: ' ';
+      position: absolute;
+      display: block;
+      width: 26px;
+      height: 26px;
+      background: #444;
+    }
 
-  div:before {
-    left: -17px;
-    border-radius: 50% 0 0 50%;
-  }
+    &:before {
+      left: -17px;
+      border-radius: 50% 0 0 50%;
+    }
 
-  div:after {
-    top: -17px;
-    border-radius: 50% 50% 0 0;
+    &:after {
+      top: -17px;
+      border-radius: 50% 50% 0 0;
+    }
   }
 
   @keyframes lds-heart {
@@ -61,8 +62,11 @@ const LoaderStyle = styled.div`
   }
 `;
 
-export default () => (
-  <LoaderStyle>
-    <div />
+const Loader = ({ children, ...rest }) => (
+  <LoaderStyle {...rest}>
+    <LoaderBlock />
+    {children || null}
   </LoaderStyle>
 );
+
+export default Loader;
