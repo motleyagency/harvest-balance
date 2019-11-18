@@ -1,12 +1,12 @@
 import React from 'react';
-import HomePage from './../home';
-import ProjectPage from './../projects';
-import { Switch, Route, Router } from './../../util/router.js';
-// import analytics from './../../util/analytics.js';
-import { ProvideAuth } from './../../util/auth.js';
+import HomePage from '../home';
+import ProjectPage from '../projects';
+import { Switch, Route, Router } from '../../util/router';
+// import analytics from './../../util/analytics';
+import { ProvideAuth } from '../../util/auth';
 import './styles.scss';
 
-function App(props) {
+function App() {
   return (
     <Router>
       <ProvideAuth>
