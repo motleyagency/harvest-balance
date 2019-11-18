@@ -10,6 +10,11 @@ const StyledLoader = styled(Loader)``;
 
 const Breakdown = styled.div``;
 
+const Error = styled.p`
+  text-align: center;
+  color: red;
+`;
+
 const TotalProjectProgress = styled(ProjectProgress)`
   margin-bottom: 1.5em;
   padding-bottom: 1em;
@@ -110,6 +115,7 @@ const getTotalHours = arr =>
 
 function ProjectsSection() {
   const [data, setData] = useState({});
+  const [error, setError] = useState('');
   const [dateString, setDateString] = useState('');
   const [weekModifier, setWeek] = useState(0);
   const [isLoading, setLoading] = useState(false);
@@ -119,8 +125,10 @@ function ProjectsSection() {
 
   const handleSubmit = async reqWeek => {
     setLoading(true);
-    let startDate = moment(),
-      endDate = moment();
+    setError('');
+
+    let startDate = moment();
+    let endDate = moment();
     const subsMod = reqWeek ? weekModifier + reqWeek : 0;
 
     if (reqWeek && subsMod) {
@@ -154,7 +162,10 @@ function ProjectsSection() {
       startDate: startDate.format('YYYYMMDD'),
       endDate: endDate.format('YYYYMMDD'),
       harvestUserId: userId,
+    }).catch(e => {
+      setError(e.error_description);
     });
+
     setLoading(false);
     setData(balance);
   };
@@ -163,6 +174,15 @@ function ProjectsSection() {
     // code to run on component mount
     handleSubmit();
   }, []);
+
+  if (error) {
+    return (
+      <Container>
+        <Error>{error}</Error>
+      </Container>
+    );
+  }
+
   const { timeSummary } = data;
   const hasData = timeSummary && timeSummary.length;
 
