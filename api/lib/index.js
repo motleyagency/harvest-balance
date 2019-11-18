@@ -3,13 +3,15 @@ const fetch = require('node-fetch');
 const handleError = (err, res) => {
   if (err instanceof Error) {
     res.status(500).json({ error: err.name, error_description: err.message });
+    return;
   }
 
   if (['invalid_token', 'invalid_grant'].includes(err.error)) {
     res.status(401).json(err);
-  } else {
-    res.status(500).json(err);
+    return;
   }
+
+  res.status(500).json(err);
 };
 
 const getToken = (code, scope) =>
