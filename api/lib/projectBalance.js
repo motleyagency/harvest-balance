@@ -36,9 +36,17 @@ const getProjectBalance = async (
     headers: headers(token),
   })
     .then(res => res.json())
-    .then(({ people }) =>
-      people.find(p => String(p.harvest_user_id) === String(harvestUserId)),
-    )
+    .then(({ people = [] }) => {
+      const person = people.find(
+        p => String(p.harvest_user_id) === String(harvestUserId),
+      );
+
+      if (!person) {
+        throw new Error('Cannot find a Forecast person for the Harvest user.');
+      }
+
+      return person;
+    })
     .then(person => person.id);
 
   const assignmentsUrl = `${BASE_URL}/assignments?start_date=${start}&end_date=${end}&person_id=${personId}`;
