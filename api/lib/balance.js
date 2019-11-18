@@ -9,10 +9,10 @@ const hoursPerDay = process.env.HOURS_PER_DAY || 7.5;
 const isWeekend = dayNumber => [0, 6].includes(dayNumber);
 
 // recursively fetches all pages of time entries from harvest for the current user
-const fetchTimeEntries = (token, { fromDate, toDate }, url) => {
+const fetchTimeEntries = async (token, { userId, fromDate, toDate }, url) => {
   const currentUrl =
     url ||
-    `https://api.harvestapp.com/v2/time_entries?from=${fromDate}&to=${toDate}`;
+    `https://api.harvestapp.com/v2/time_entries?user_id=${userId}&from=${fromDate}&to=${toDate}`;
 
   return fetch(currentUrl, {
     method: 'GET',
@@ -32,7 +32,7 @@ const fetchTimeEntries = (token, { fromDate, toDate }, url) => {
     })
     .then(({ time_entries: timeEntries, links: { next } }) => {
       if (next) {
-        return fetchTimeEntries(token, { fromDate, toDate }, next).then(
+        return fetchTimeEntries(token, { userId, fromDate, toDate }, next).then(
           nextEntries => timeEntries.concat(nextEntries),
         );
       }
@@ -47,7 +47,7 @@ const fetchTimeEntries = (token, { fromDate, toDate }, url) => {
 // * balance for that day (due hours - logged hours)
 // * cumulative balance from start of year
 
-const getBalance = (token, { startDate, includeToday }) => {
+const getBalance = (token, { userId, startDate, includeToday }) => {
   const fromDate = moment(startDate);
   const toDate = moment()
     .subtract(includeToday ? 0 : 1, 'day')
@@ -55,6 +55,7 @@ const getBalance = (token, { startDate, includeToday }) => {
   const endOfWeek = moment(toDate).endOf('isoweek'); // Sunday as last day of week
 
   return fetchTimeEntries(token, {
+    userId,
     fromDate: fromDate.format('YYYYMMDD'),
     toDate: toDate.format('YYYYMMDD'),
   })
