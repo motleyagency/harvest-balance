@@ -2,6 +2,7 @@ const storage = window.localStorage;
 const PREFIX = 'harvestBalance';
 
 export const storageTokenKey = 'harvest_token';
+export const expiresInTokenKey = 'harvest_token_expires_in';
 export const storageUserKey = 'harvest_user';
 export const storageDateKey = 'harvest_start_date';
 
