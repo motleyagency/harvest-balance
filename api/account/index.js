@@ -1,4 +1,5 @@
-const { getAccount, handleError } = require('../lib');
+const { handleError } = require('../lib');
+const { getAccount } = require('../lib/account');
 
 module.exports = (req, res) => {
   const token = req.headers.harvest_token;
