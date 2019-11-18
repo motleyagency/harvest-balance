@@ -1,11 +1,18 @@
 const { handleError } = require('../lib');
+const { getAccount } = require('../lib/account');
 const { getProjectBalance } = require('../lib/projectBalance');
 
-module.exports = (req, res) => {
-  const { startDate, endDate, harvestUserId } = req.query;
+module.exports = async (req, res) => {
+  const { startDate, endDate } = req.query;
   const token = req.headers.harvest_token;
 
-  getProjectBalance(token, { startDate, endDate, harvestUserId })
+  const { id: harvestUserId } = await getAccount(token);
+
+  getProjectBalance(token, {
+    startDate,
+    endDate,
+    harvestUserId,
+  })
     .then(report => {
       res.json(report);
     })

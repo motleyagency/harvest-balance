@@ -86,8 +86,8 @@ const getProjectBalance = async (
         period_allocation_hours: 0,
       };
     }
-    const assStartInPeriod = moment.max(start, moment(a.start_date));
-    const assEndInPeriod = moment.min(end, moment(a.end_date));
+    const assStartInPeriod = moment.max(moment(start), moment(a.start_date));
+    const assEndInPeriod = moment.min(moment(end), moment(a.end_date));
     const assDays = assEndInPeriod.diff(assStartInPeriod, 'days') + 1;
 
     acc[a.project_id].period_allocation_days += assDays;
@@ -102,6 +102,7 @@ const getProjectBalance = async (
   ).map(a => a.harvest_project_id);
 
   const timeEntries = await fetchTimeEntries(token, {
+    userId: harvestUserId,
     fromDate: moment(startDate).format('YYYYMMDD'),
     toDate: moment(endDate).format('YYYYMMDD'),
   });
