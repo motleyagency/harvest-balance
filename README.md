@@ -73,6 +73,8 @@ The frontend, however, requires the backend functions to work properly. If you h
 now dev
 ```
 
+> **NOTE:** For now you need to stay at version 16 of the Now CLI, since version 17 introduces project linking which forces a deploy when setting up the project. We don't want to deploy only to set up a development environment, so stay at version 16!
+
 ## Building and deploying
 
 To deploy this app to Zeit Now, follow these steps:
