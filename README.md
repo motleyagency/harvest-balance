@@ -64,13 +64,13 @@ To start the frontend in development mode, clone the repository and run
 
 ```
 npm install
+npm start-react
+```
+
+The frontend, however, requires the backend functions to work properly. If you have the [Now CLI](https://zeit.co/download) installed (version 16, see below), you can start the full stack development environment with
+
+```
 npm start
-```
-
-The frontend, however, requires the backend functions to work properly. If you have the [Now CLI](https://zeit.co/download) installed, you can start the full stack development environment with
-
-```
-now dev
 ```
 
 > **NOTE:** For now you need to stay at version 16 of the Now CLI, since version 17 introduces project linking which forces a deploy when setting up the project. We don't want to deploy only to set up a development environment, so stay at version 16!
