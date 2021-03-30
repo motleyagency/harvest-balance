@@ -2,7 +2,7 @@
 
 Calculate your time balance using the Harvest API.
 
-The app consists of a React frontend (built with create-react-app) and a handful of lambda functions for Harvest API calls.
+The app consists of a React frontend (built with create-react-app) and a handful of serverless functions for Harvest API calls.
 
 ## Calculation principles
 
@@ -16,7 +16,7 @@ Total working hours are 7.5 hours times the number of working weekdays since the
 
 ## Setup
 
-You need to set up an API client in Harvest and configure your environment variables for the lambdas.
+You need to set up an API client in Harvest and configure your environment variables for the serverless functions.
 
 ### Harvest account set up
 
@@ -34,6 +34,8 @@ See detailed instructions for registering the app on [Harvest's website](https:/
 
 ### App set up
 
+This application is set up to be easily deployed to Vercel.
+
 The information you need to to run this app is
 
 - Your company's Harvest subdomain (i.e. **youraccount**_.harvestapp.com_)
@@ -45,7 +47,9 @@ The information you need to to run this app is
 
 The deductible task list is an array of Harvest task ids of the tasks that should be deducted from the cumulative balance. I.e. if the id for "Overtime holiday" is specified, all logged "Overtime holiday" hours will subtract from the balance instead of adding to it.
 
-Create a `.env` file at the root of the project with the following information from the above step (use `.env.template` as template):
+If you've stored the environment variables in Vercel, you can download the .env file using `vercel env pull`.
+
+Otherwise, create a `.env` file at the root of the project with the following information from the above step (use `.env.template` as template):
 
 ```
 HARVEST_SUBDOMAIN=yourSubdomain
@@ -58,37 +62,45 @@ FORECAST_ACCOUNT_ID=yourForecastAccountId
 
 Refer to the documentation of your hosting service of choice for information on how to set the environment variables for the deployed app.
 
-## Development
+## Development environment for existing project
 
-To start the frontend in development mode, clone the repository and run
+Install dependencies
 
 ```
 npm install
-npm start-react
 ```
 
-The frontend, however, requires the backend functions to work properly. If you have the [Now CLI](https://zeit.co/download) installed (version 16, see below), you can start the full stack development environment with
+Install the [Vercel CLI](https://vercel.com/cli) and link the project to your deployment
+
+```
+vercel link
+```
+
+To start the fullstack development environment using [Vercel](https://vercel.com/cli), run
 
 ```
 npm start
 ```
 
-> **NOTE:** For now you need to stay at version 16 of the Now CLI, since version 17 introduces project linking which forces a deploy when setting up the project. We don't want to deploy only to set up a development environment, so stay at version 16!
+To start only the frontend development environment (you need to host the serverless functions somehwere else), run
+
+```
+npm start-react
+```
 
 ## Building and deploying
 
-To deploy this app to Zeit Now, follow these steps:
+To deploy this app to Vercel, follow these steps:
 
-- Install the [Now CLI](https://zeit.co/download)
-- Add the above environment variables in lowercase as [secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets/).<br/>
-  For example `now secrets add harvest_subdomain -- yourSubdomain`
-- Run `now` to build and deploy
+- Add the above environment variables in lowercase as [secrets](https://vercel.com/docs/environment-variables).<br/>
+  For example `vercel secrets add harvest_subdomain -- yourSubdomain`
+- Run `vercel` to build and deploy
 
 For other service providers, refer to their specific documentation.
 
 ## Server API
 
-The backend only consists of a handful of lambda functions that are set up to easily deploy to Zeit Now.
+The backend only consists of a handful of serverless functions that are set up to easily deploy to Zeit Now.
 
 ### GET /api/auth
 
