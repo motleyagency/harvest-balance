@@ -8,7 +8,7 @@
     "bulma": "0.7.5",
     "forecast-promise": "^1.2.1",
     "lodash.groupby": "^4.6.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.1",
     "node-fetch": "^2.6.0",
     "node-sass": "4.13.1",
     "query-string": "6.8.2",
