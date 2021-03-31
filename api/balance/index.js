@@ -3,7 +3,7 @@ const { getBalance } = require('../lib/balance');
 const { getAccount } = require('../lib/account');
 
 module.exports = async (req, res) => {
-  const { startDate, includeToday } = req.query;
+  const { startDate, endDate } = req.query;
   const token = req.headers.harvest_token;
 
   const { id: userId } = await getAccount(token);
@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
   getBalance(token, {
     userId,
     startDate,
-    includeToday: includeToday === 'true',
+    endDate,
   })
     .then(report => {
       res.json(report);
