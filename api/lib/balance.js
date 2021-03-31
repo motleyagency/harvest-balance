@@ -47,11 +47,9 @@ const fetchTimeEntries = async (token, { userId, fromDate, toDate }, url) => {
 // * balance for that day (due hours - logged hours)
 // * cumulative balance from start of year
 
-const getBalance = (token, { userId, startDate, includeToday }) => {
+const getBalance = (token, { userId, startDate, endDate }) => {
   const fromDate = moment(startDate);
-  const toDate = moment()
-    .subtract(includeToday ? 0 : 1, 'day')
-    .endOf('day');
+  const toDate = moment(endDate).endOf('day');
   const endOfWeek = moment(toDate).endOf('isoweek'); // Sunday as last day of week
 
   return fetchTimeEntries(token, {

@@ -49,16 +49,7 @@ The deductible task list is an array of Harvest task ids of the tasks that shoul
 
 If you've stored the environment variables in Vercel, you can download the .env file using `vercel env pull`.
 
-Otherwise, create a `.env` file at the root of the project with the following information from the above step (use `.env.template` as template):
-
-```
-HARVEST_SUBDOMAIN=yourSubdomain
-HARVEST_ACCOUNT_ID=1234567
-HARVEST_CLIENT_ID=yourClientId
-HARVEST_SECRET=yourClientSecret
-DEDUCTIBLE_TASKS=[1537475]
-FORECAST_ACCOUNT_ID=yourForecastAccountId
-```
+Otherwise, create a `.env` file from `.env.template` at the root of the project and populate it with the information from the above step.
 
 Refer to the documentation of your hosting service of choice for information on how to set the environment variables for the deployed app.
 
@@ -93,7 +84,7 @@ npm start-react
 To deploy this app to Vercel, follow these steps:
 
 - Add the above environment variables in lowercase as [secrets](https://vercel.com/docs/environment-variables).<br/>
-  For example `vercel secrets add harvest_subdomain -- yourSubdomain`
+  For example `vercel secrets add harvest_secret -- yourSecret`
 - Run `vercel` to build and deploy
 
 For other service providers, refer to their specific documentation.
