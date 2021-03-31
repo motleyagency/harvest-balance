@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "analytics": "0.1.16",
-    "analytics-plugin-ga": "0.1.5",
+    "analytics-plugin-ga": "0.2.0",
     "bulma": "0.9.2",
     "forecast-promise": "^1.2.1",
     "lodash.groupby": "^4.6.0",
