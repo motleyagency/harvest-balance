@@ -60,35 +60,31 @@ Refer to the documentation of your hosting service of choice for information on 
 
 ## Development
 
-To start the frontend in development mode, clone the repository and run
+To start the frontend in development mode, clone the repository and install the [Vercel CLI](https://vercel.com/cli).
+Create an account to [Vercel](https://vercel.com/) to [get started](https://vercel.com/docs/get-started).
+
+You can start the full stack development environment with
 
 ```
 npm install
-npm start-react
+vercel dev
 ```
 
-The frontend, however, requires the backend functions to work properly. If you have the [Now CLI](https://zeit.co/download) installed (version 16, see below), you can start the full stack development environment with
-
-```
-npm start
-```
-
-> **NOTE:** For now you need to stay at version 16 of the Now CLI, since version 17 introduces project linking which forces a deploy when setting up the project. We don't want to deploy only to set up a development environment, so stay at version 16!
+Now the app is available at [http://localhost:3000](http://localhost:3000).
 
 ## Building and deploying
 
-To deploy this app to Zeit Now, follow these steps:
+To deploy this app to Vercel, follow these steps:
 
-- Install the [Now CLI](https://zeit.co/download)
-- Add the above environment variables in lowercase as [secrets](https://zeit.co/docs/v2/serverless-functions/env-and-secrets/).<br/>
-  For example `now secrets add harvest_subdomain -- yourSubdomain`
-- Run `now` to build and deploy
+- Install the [Vercel CLI](https://vercel.com/cli)
+- Add the above environment variables as [environment variables](https://vercel.com/docs/concepts/projects/environment-variables).
+- Run `vercel` to build and deploy
 
 For other service providers, refer to their specific documentation.
 
 ## Server API
 
-The backend only consists of a handful of lambda functions that are set up to easily deploy to Zeit Now.
+The backend only consists of a handful of lambda functions that are set up to easily deploy to Vercel.
 
 ### GET /api/auth
 
